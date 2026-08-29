@@ -1,0 +1,15 @@
+.cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+web/node_modules/
+web/dist/
+web/tsconfig.tsbuildinfo
+*.csv
+.env
+.DS_Store
+All-in-one-investment-platform/
+long-term-stock-screener/
+stock-screener/

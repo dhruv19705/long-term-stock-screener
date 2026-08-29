@@ -1,0 +1,253 @@
+version: 2026-08
+index: NIFTY50
+tickers:
+  RELIANCE.NS:
+    street: BUY
+    analyst_count: 40
+    sector: energy
+    source: stockanalysis.com
+  TCS.NS:
+    street: BUY
+    analyst_count: 42
+    sector: it
+    source: stockanalysis.com
+  HDFCBANK.NS:
+    street: STRONG BUY
+    analyst_count: 40
+    sector: banking
+    source: stockanalysis.com
+  INFY.NS:
+    street: BUY
+    analyst_count: 42
+    sector: it
+    source: stockanalysis.com
+  ICICIBANK.NS:
+    street: STRONG BUY
+    analyst_count: 39
+    sector: banking
+    source: stockanalysis.com
+  HINDUNILVR.NS:
+    street: HOLD
+    analyst_count: 35
+    sector: fmcg
+    source: consensus
+  ITC.NS:
+    street: BUY
+    analyst_count: 38
+    sector: fmcg
+    source: ET Jul 2025
+  SBIN.NS:
+    street: BUY
+    analyst_count: 36
+    sector: banking
+    source: ET Jul 2025
+  BHARTIARTL.NS:
+    street: BUY
+    analyst_count: 35
+    sector: telecom
+    source: PL Capital
+  KOTAKBANK.NS:
+    street: HOLD
+    analyst_count: 34
+    sector: banking
+    source: consensus
+  LT.NS:
+    street: BUY
+    analyst_count: 32
+    sector: industrials
+    source: consensus
+  AXISBANK.NS:
+    street: BUY
+    analyst_count: 35
+    sector: banking
+    source: ET Jul 2025
+  ASIANPAINT.NS:
+    street: HOLD
+    analyst_count: 30
+    sector: consumer
+    source: consensus
+  MARUTI.NS:
+    street: BUY
+    analyst_count: 33
+    sector: auto
+    source: ET Jul 2025
+  TITAN.NS:
+    street: BUY
+    analyst_count: 28
+    sector: consumer
+    source: PL Capital
+  SUNPHARMA.NS:
+    street: BUY
+    analyst_count: 30
+    sector: pharma
+    source: stockanalysis.com
+  BAJFINANCE.NS:
+    street: BUY
+    analyst_count: 32
+    sector: financials
+    source: consensus
+  WIPRO.NS:
+    street: HOLD
+    analyst_count: 35
+    sector: it
+    source: stockanalysis.com
+  HCLTECH.NS:
+    street: HOLD
+    analyst_count: 35
+    sector: it
+    source: stockanalysis.com
+  ULTRACEMCO.NS:
+    street: BUY
+    analyst_count: 28
+    sector: materials
+    source: ET Jul 2025
+  ONGC.NS:
+    street: HOLD
+    analyst_count: 25
+    sector: energy
+    source: consensus
+  TATASTEEL.NS:
+    street: HOLD
+    analyst_count: 28
+    sector: metals
+    source: consensus
+  NTPC.NS:
+    street: BUY
+    analyst_count: 26
+    sector: energy
+    source: consensus
+  POWERGRID.NS:
+    street: HOLD
+    analyst_count: 24
+    sector: utilities
+    source: consensus
+  M&M.NS:
+    street: BUY
+    analyst_count: 30
+    sector: auto
+    source: ET Jul 2025
+  ADANIENT.NS:
+    street: HOLD
+    analyst_count: 22
+    sector: energy
+    source: consensus
+  JSWSTEEL.NS:
+    street: HOLD
+    analyst_count: 28
+    sector: metals
+    source: consensus
+  TATAMOTORS.NS:
+    street: BUY
+    analyst_count: 30
+    sector: auto
+    source: consensus
+  INDUSINDBK.NS:
+    street: BUY
+    analyst_count: 30
+    sector: banking
+    source: consensus
+  GRASIM.NS:
+    street: BUY
+    analyst_count: 22
+    sector: materials
+    source: consensus
+  COALINDIA.NS:
+    street: HOLD
+    analyst_count: 24
+    sector: energy
+    source: consensus
+  HINDALCO.NS:
+    street: BUY
+    analyst_count: 26
+    sector: metals
+    source: consensus
+  DIVISLAB.NS:
+    street: BUY
+    analyst_count: 24
+    sector: pharma
+    source: consensus
+  SBILIFE.NS:
+    street: BUY
+    analyst_count: 28
+    sector: financials
+    source: consensus
+  BPCL.NS:
+    street: HOLD
+    analyst_count: 31
+    sector: energy
+    source: stockanalysis.com
+  CIPLA.NS:
+    street: BUY
+    analyst_count: 28
+    sector: pharma
+    source: consensus
+  EICHERMOT.NS:
+    street: BUY
+    analyst_count: 24
+    sector: auto
+    source: consensus
+  HEROMOTOCO.NS:
+    street: BUY
+    analyst_count: 36
+    sector: auto
+    source: stockanalysis.com
+  BAJAJ-AUTO.NS:
+    street: BUY
+    analyst_count: 26
+    sector: auto
+    source: consensus
+  DRREDDY.NS:
+    street: BUY
+    analyst_count: 26
+    sector: pharma
+    source: consensus
+  TRENT.NS:
+    street: BUY
+    analyst_count: 22
+    sector: consumer
+    source: consensus
+  APOLLOHOSP.NS:
+    street: BUY
+    analyst_count: 24
+    sector: healthcare
+    source: PL Capital
+  BEL.NS:
+    street: BUY
+    analyst_count: 20
+    sector: industrials
+    source: consensus
+  SHRIRAMFIN.NS:
+    street: BUY
+    analyst_count: 26
+    sector: financials
+    source: consensus
+  HDFCLIFE.NS:
+    street: BUY
+    analyst_count: 28
+    sector: financials
+    source: consensus
+  ADANIPORTS.NS:
+    street: BUY
+    analyst_count: 28
+    sector: infra
+    source: CNBC-TV18
+  TECHM.NS:
+    street: HOLD
+    analyst_count: 30
+    sector: it
+    source: BusinessToday
+  PIDILITIND.NS:
+    street: STRONG BUY
+    analyst_count: 24
+    sector: consumer
+    source: stocktargetadvisor
+  BAJAJFINSV.NS:
+    street: STRONG BUY
+    analyst_count: 26
+    sector: financials
+    source: stocktargetadvisor
+  JIOFIN.NS:
+    street: HOLD
+    analyst_count: 22
+    sector: financials
+    source: consensus

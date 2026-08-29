@@ -1,0 +1,153 @@
+version: 2026-08
+index: NIFTY_NEXT50
+tickers:
+  DMART.NS:
+    street: BUY
+    analyst_count: 24
+    sector: consumer
+    source: consensus
+  SIEMENS.NS:
+    street: BUY
+    analyst_count: 22
+    sector: industrials
+    source: consensus
+  HAVELLS.NS:
+    street: BUY
+    analyst_count: 22
+    sector: industrials
+    source: consensus
+  VOLTAS.NS:
+    street: HOLD
+    analyst_count: 20
+    sector: industrials
+    source: consensus
+  PIIND.NS:
+    street: BUY
+    analyst_count: 20
+    sector: pharma
+    source: consensus
+  CHOLAFIN.NS:
+    street: BUY
+    analyst_count: 24
+    sector: financials
+    source: consensus
+  MUTHOOTFIN.NS:
+    street: BUY
+    analyst_count: 22
+    sector: financials
+    source: consensus
+  INDHOTEL.NS:
+    street: BUY
+    analyst_count: 22
+    sector: consumer
+    source: consensus
+  DLF.NS:
+    street: BUY
+    analyst_count: 24
+    sector: real_estate
+    source: consensus
+  GODREJPROP.NS:
+    street: HOLD
+    analyst_count: 20
+    sector: real_estate
+    source: consensus
+  ABB.NS:
+    street: BUY
+    analyst_count: 22
+    sector: industrials
+    source: PL Capital
+  HAL.NS:
+    street: BUY
+    analyst_count: 20
+    sector: industrials
+    source: PL Capital
+  INDIGO.NS:
+    street: BUY
+    analyst_count: 24
+    sector: industrials
+    source: PL Capital
+  NESTLEIND.NS:
+    street: HOLD
+    analyst_count: 28
+    sector: fmcg
+    source: consensus
+  DABUR.NS:
+    street: HOLD
+    analyst_count: 24
+    sector: fmcg
+    source: consensus
+  BRITANNIA.NS:
+    street: HOLD
+    analyst_count: 26
+    sector: fmcg
+    source: consensus
+  MARICO.NS:
+    street: BUY
+    analyst_count: 24
+    sector: fmcg
+    source: consensus
+  GODREJCP.NS:
+    street: BUY
+    analyst_count: 22
+    sector: fmcg
+    source: consensus
+  LUPIN.NS:
+    street: BUY
+    analyst_count: 24
+    sector: pharma
+    source: PL Capital
+  ALKEM.NS:
+    street: BUY
+    analyst_count: 22
+    sector: pharma
+    source: consensus
+  TVSMOTOR.NS:
+    street: BUY
+    analyst_count: 22
+    sector: auto
+    source: consensus
+  AMBUJACEM.NS:
+    street: STRONG BUY
+    analyst_count: 22
+    sector: materials
+    source: stocktargetadvisor
+  JINDALSTEL.NS:
+    street: STRONG BUY
+    analyst_count: 20
+    sector: metals
+    source: stocktargetadvisor
+  VEDL.NS:
+    street: HOLD
+    analyst_count: 24
+    sector: metals
+    source: consensus
+  GAIL.NS:
+    street: HOLD
+    analyst_count: 22
+    sector: energy
+    source: consensus
+  CANBK.NS:
+    street: BUY
+    analyst_count: 22
+    sector: banking
+    source: consensus
+  BANKBARODA.NS:
+    street: BUY
+    analyst_count: 22
+    sector: banking
+    source: consensus
+  PERSISTENT.NS:
+    street: BUY
+    analyst_count: 20
+    sector: it
+    source: consensus
+  COFORGE.NS:
+    street: BUY
+    analyst_count: 20
+    sector: it
+    source: BusinessToday
+  LTTS.NS:
+    street: HOLD
+    analyst_count: 20
+    sector: it
+    source: consensus

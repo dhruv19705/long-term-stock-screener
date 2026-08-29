@@ -1,0 +1,22 @@
+# Maps canonical universe ticker -> yfinance symbol(s) to try in order
+# Use when NSE symbol differs from Yahoo or Yahoo has stale/delisted mapping
+
+aliases:
+  TATAMOTORS.NS: TMPV.NS
+  CUB.NS: CUB.NS
+  CIUB.NS: CUB.NS
+  M&M.NS: M&M.NS
+
+fallbacks:
+  TATAMOTORS.NS:
+    - TMPV.NS
+    - TATAMOTORS.NS
+  M&M.NS:
+    - M&M.NS
+    - M%26M.NS
+  LTIM.NS:
+    - LTIM.NS
+    - LTIM.BO
+  CIGNITITEC.NS:
+    - CIGNITITEC.NS
+    - CIGNITI.NS

@@ -1,0 +1,12 @@
+yfinance
+pandas
+numpy
+scipy
+pyyaml
+pyarrow
+fastapi
+uvicorn
+pydantic
+jinja2
+pytest
+httpx

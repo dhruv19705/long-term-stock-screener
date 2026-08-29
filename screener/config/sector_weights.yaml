@@ -1,0 +1,109 @@
+# Sector-specific factor weight overrides (base weights in generic.py)
+# Soft metric bands: good/warn thresholds for overlay scoring
+
+IT:
+  weights:
+    quality: 0.30
+    growth: 0.32
+    value: 0.22
+    momentum: 0.10
+    risk_penalty: 0.06
+  metrics:
+    roe_pct: { good: 18.0, warn: 12.0, higher_better: true, weight: 1.2 }
+    operating_margin_pct: { good: 14.0, warn: 10.0, higher_better: true, weight: 1.5 }
+    revenue_growth_pct: { good: 10.0, warn: 5.0, higher_better: true, weight: 1.2 }
+
+FMCG:
+  weights:
+    quality: 0.35
+    growth: 0.15
+    value: 0.25
+    momentum: 0.10
+    risk_penalty: 0.15
+  metrics:
+    roce_pct: { good: 17.0, warn: 12.0, higher_better: true, weight: 1.5 }
+    ebitda_margin_pct: { good: 15.0, warn: 10.0, higher_better: true, weight: 1.2 }
+    debt_to_equity: { good: 0.8, warn: 1.2, higher_better: false, weight: 1.0 }
+
+PHARMA:
+  weights:
+    quality: 0.35
+    growth: 0.25
+    value: 0.20
+    momentum: 0.10
+    risk_penalty: 0.10
+  metrics:
+    roe_pct: { good: 14.0, warn: 10.0, higher_better: true, weight: 1.2 }
+    operating_margin_pct: { good: 12.0, warn: 8.0, higher_better: true, weight: 1.2 }
+    interest_coverage: { good: 3.0, warn: 1.5, higher_better: true, weight: 1.0 }
+    debt_to_equity: { good: 0.6, warn: 1.0, higher_better: false, weight: 1.0 }
+
+AUTO:
+  weights:
+    quality: 0.25
+    growth: 0.25
+    value: 0.25
+    momentum: 0.15
+    risk_penalty: 0.10
+  metrics:
+    roe_pct: { good: 12.0, warn: 8.0, higher_better: true, weight: 1.0 }
+    operating_margin_pct: { good: 8.0, warn: 5.0, higher_better: true, weight: 1.2 }
+    revenue_growth_pct: { good: 8.0, warn: 3.0, higher_better: true, weight: 1.0 }
+  cyclical: true
+
+ENERGY:
+  weights:
+    quality: 0.28
+    growth: 0.12
+    value: 0.28
+    momentum: 0.12
+    risk_penalty: 0.12
+    cashflow: 0.18
+  metrics:
+    roe_pct: { good: 10.0, warn: 6.0, higher_better: true, weight: 1.0 }
+    free_cash_flow_ttm: { good: 0.0, warn: -1.0, higher_better: true, weight: 1.5 }
+    dividend_yield_pct: { good: 2.0, warn: 0.5, higher_better: true, weight: 1.0 }
+    interest_coverage: { good: 2.5, warn: 1.5, higher_better: true, weight: 1.0 }
+  cyclical: true
+
+METALS:
+  weights:
+    quality: 0.22
+    growth: 0.18
+    value: 0.32
+    momentum: 0.15
+    risk_penalty: 0.13
+  metrics:
+    roe_pct: { good: 12.0, warn: 6.0, higher_better: true, weight: 1.0 }
+    operating_margin_pct: { good: 8.0, warn: 4.0, higher_better: true, weight: 1.2 }
+  cyclical: true
+
+CAPITAL_GOODS:
+  weights:
+    quality: 0.30
+    growth: 0.30
+    value: 0.20
+    momentum: 0.10
+    risk_penalty: 0.10
+  metrics:
+    roe_pct: { good: 14.0, warn: 10.0, higher_better: true, weight: 1.2 }
+    operating_margin_pct: { good: 10.0, warn: 6.0, higher_better: true, weight: 1.0 }
+    revenue_growth_pct: { good: 10.0, warn: 4.0, higher_better: true, weight: 1.2 }
+
+DEFAULT:
+  weights:
+    quality: 0.30
+    growth: 0.25
+    value: 0.25
+    momentum: 0.10
+    risk_penalty: 0.10
+
+cyclical_sectors:
+  - AUTO
+  - ENERGY
+  - METALS
+  - CAPITAL_GOODS
+
+defensive_sectors:
+  - FMCG
+  - PHARMA

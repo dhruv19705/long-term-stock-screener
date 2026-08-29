@@ -1,0 +1,51 @@
+sector: generic
+questions:
+  - id: GQ1
+    question: Is the balance sheet safe?
+    dimension: leverage_risk
+    metrics: [debt_to_equity, interest_coverage]
+    signals:
+      good: { debt_to_equity: { op: "<", value: 0.8 }, interest_coverage: { op: ">", value: 2.5 } }
+      warn: { debt_to_equity: { op: "<", value: 1.5 } }
+      bad: {}
+    weight: 1.5
+
+  - id: GQ2
+    question: Is valuation reasonable vs peers?
+    dimension: valuation_risk
+    metrics: [valuation_label, pe, pb]
+    signals:
+      good: { valuation_label: { op: "in", values: ["Under"] } }
+      warn: { valuation_label: { op: "in", values: ["Fair", "Under"] } }
+      bad: {}
+    weight: 1.2
+
+  - id: GQ3
+    question: Is earnings quality solid?
+    dimension: earnings_risk
+    metrics: [roe_pct, operating_margin_pct, profit_growth_pct]
+    signals:
+      good: { roe_pct: { op: ">", value: 10.0 }, operating_margin_pct: { op: ">", value: 6.0 } }
+      warn: { roe_pct: { op: ">", value: 5.0 } }
+      bad: {}
+    weight: 1.2
+
+  - id: GQ4
+    question: Is momentum and tail risk acceptable?
+    dimension: market_risk
+    metrics: [return_6m_pct, rs_vs_nifty_pct, max_drawdown_1y_pct]
+    signals:
+      good: { rs_vs_nifty_pct: { op: ">", value: -5.0 } }
+      warn: { rs_vs_nifty_pct: { op: ">", value: -15.0 } }
+      bad: {}
+    weight: 1.0
+
+  - id: GQ5
+    question: Is data sufficient to trust this score?
+    dimension: data_risk
+    metrics: [data_completeness, data_source]
+    signals:
+      good: { data_completeness: { op: ">", value: 0.7 } }
+      warn: { data_completeness: { op: ">", value: 0.5 } }
+      bad: {}
+    weight: 1.0

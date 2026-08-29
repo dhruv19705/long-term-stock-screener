@@ -1,0 +1,37 @@
+# Finance-subsidiary D/E adjustments (yfinance consolidates NBFC debt on parent)
+adjustments:
+  HEROMOTOCO.NS:
+    strategy: cap_ratio
+    cap_ratio: 1.5
+    note: Hero FinCorp consolidated debt inflates parent D/E
+  BAJAJ-AUTO.NS:
+    strategy: cap_ratio
+    cap_ratio: 1.5
+  M&M.NS:
+    strategy: cap_ratio
+    cap_ratio: 1.5
+  EICHERMOT.NS:
+    strategy: cap_ratio
+    cap_ratio: 1.5
+  TVSMOTOR.NS:
+    strategy: cap_ratio
+    cap_ratio: 1.5
+  PIDILITIND.NS:
+    strategy: cap_ratio
+    cap_ratio: 2.0
+    note: yfinance D/E artifact for asset-light adhesives
+
+# Sector-wide D/E hard-gate limits (hard_limit, red_flag_limit)
+sector_de_limits:
+  default:
+    hard: 3.0
+    red: 2.5
+  auto:
+    hard: 4.0
+    red: 3.5
+  fmcg:
+    hard: 4.0
+    red: 3.5
+  pharma:
+    hard: 4.0
+    red: 3.5

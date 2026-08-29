@@ -1,0 +1,120 @@
+# Absolute valuation bands — Under / Fair / Over from fixed thresholds (not peer z-scores).
+# For range metrics (PE, PB, PEG, EV/EBITDA): value <= under_max → Under; <= fair_max → Fair; else Over.
+# For yield metrics (earnings_yield_pct, fcf_yield_pct): value >= under_min → Under; >= fair_min → Fair; else Over.
+
+defaults:
+  pe:
+    under_max: 18
+    fair_max: 28
+  pb:
+    under_max: 2.0
+    fair_max: 3.5
+  peg:
+    under_max: 1.0
+    fair_max: 2.0
+  ev_ebitda:
+    under_max: 10
+    fair_max: 16
+  earnings_yield_pct:
+    under_min: 5.0
+    fair_min: 3.5
+  fcf_yield_pct:
+    under_min: 4.0
+    fair_min: 2.0
+
+sectors:
+  BANKING:
+    metrics: [pb, earnings_yield_pct]
+    pb:
+      under_max: 2.0
+      fair_max: 3.5
+    earnings_yield_pct:
+      under_min: 4.5
+      fair_min: 3.0
+
+  INSURANCE:
+    metrics: [pb, pe]
+    pb:
+      under_max: 3.0
+      fair_max: 6.0
+    pe:
+      under_max: 25
+      fair_max: 45
+
+  IT:
+    metrics: [pe, peg, earnings_yield_pct]
+    pe:
+      under_max: 22
+      fair_max: 32
+    peg:
+      under_max: 1.2
+      fair_max: 2.5
+    earnings_yield_pct:
+      under_min: 4.5
+      fair_min: 3.0
+
+  FMCG:
+    metrics: [pe, ev_ebitda]
+    pe:
+      under_max: 30
+      fair_max: 45
+    ev_ebitda:
+      under_max: 22
+      fair_max: 32
+
+  PHARMA:
+    metrics: [pe, ev_ebitda]
+    pe:
+      under_max: 25
+      fair_max: 38
+    ev_ebitda:
+      under_max: 18
+      fair_max: 28
+
+  AUTO:
+    metrics: [pe, pb]
+    pe:
+      under_max: 18
+      fair_max: 28
+    pb:
+      under_max: 3.0
+      fair_max: 5.0
+
+  ENERGY:
+    metrics: [pe, ev_ebitda]
+    pe:
+      under_max: 12
+      fair_max: 18
+    ev_ebitda:
+      under_max: 6
+      fair_max: 10
+
+  METALS:
+    metrics: [pe, pb]
+    pe:
+      under_max: 10
+      fair_max: 16
+    pb:
+      under_max: 1.5
+      fair_max: 2.5
+
+  CAPITAL_GOODS:
+    metrics: [pe, ev_ebitda]
+    pe:
+      under_max: 22
+      fair_max: 35
+    ev_ebitda:
+      under_max: 14
+      fair_max: 22
+
+  DEFAULT:
+    metrics: [pe, pb, ev_ebitda]
+    pe:
+      under_max: 18
+      fair_max: 28
+    pb:
+      under_max: 2.0
+      fair_max: 3.5
+    ev_ebitda:
+      under_max: 10
+      fair_max: 16

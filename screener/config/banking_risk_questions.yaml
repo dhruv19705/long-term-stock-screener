@@ -1,0 +1,71 @@
+sector: banking
+questions:
+  - id: BQ1
+    question: Is asset quality under control?
+    dimension: credit_risk
+    metrics: [gnpa_pct, nnpa_pct]
+    signals:
+      good: { gnpa_pct: { op: "<", value: 1.5 }, nnpa_pct: { op: "<", value: 0.5 } }
+      warn: { gnpa_pct: { op: "<", value: 2.5 } }
+      bad: {}
+    weight: 1.5
+
+  - id: BQ2
+    question: Is the bank well capitalized?
+    dimension: solvency_risk
+    metrics: [car_pct]
+    signals:
+      good: { car_pct: { op: ">", value: 16.0 } }
+      warn: { car_pct: { op: ">", value: 14.0 } }
+      bad: {}
+    weight: 1.5
+
+  - id: BQ3
+    question: Is lending profitable?
+    dimension: earnings_risk
+    metrics: [nim_pct, roa_pct]
+    signals:
+      good: { nim_pct: { op: ">", value: 3.5 }, roa_pct: { op: ">", value: 1.3 } }
+      warn: { nim_pct: { op: ">", value: 2.5 } }
+      bad: {}
+    weight: 1.0
+
+  - id: BQ4
+    question: Is loan growth sustainable?
+    dimension: growth_risk
+    metrics: [credit_growth_pct]
+    signals:
+      good: { credit_growth_pct: { op: "between", low: 8.0, high: 20.0 } }
+      warn: { credit_growth_pct: { op: ">", value: 0.0 } }
+      bad: {}
+    weight: 1.0
+
+  - id: BQ5
+    question: Is the stock cheap vs peers?
+    dimension: valuation_risk
+    metrics: [pb, valuation_label]
+    signals:
+      good: { valuation_label: { op: "in", values: ["Under"] } }
+      warn: { valuation_label: { op: "in", values: ["Fair", "Under"] } }
+      bad: {}
+    weight: 1.0
+
+  - id: BQ6
+    question: Are there distress signals?
+    dimension: tail_risk
+    metrics: [red_flag]
+    signals:
+      good: { red_flag: { op: "==", value: false } }
+      warn: { red_flag: { op: "==", value: false } }
+      bad: {}
+    weight: 1.5
+
+  - id: BQ7
+    question: Are earnings improving?
+    dimension: earnings_trend
+    metrics: [profit_growth_pct, roe_pct]
+    signals:
+      good: { profit_growth_pct: { op: ">", value: 10.0 }, roe_pct: { op: ">", value: 12.0 } }
+      warn: { profit_growth_pct: { op: ">", value: 0.0 } }
+      bad: {}
+    weight: 1.0

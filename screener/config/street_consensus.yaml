@@ -1,0 +1,202 @@
+version: 2026-08
+tickers:
+  RELIANCE.NS:
+    street: BUY
+    analyst_count: 40
+    source: stockanalysis.com
+  TCS.NS:
+    street: BUY
+    analyst_count: 42
+    source: stockanalysis.com
+  HDFCBANK.NS:
+    street: STRONG BUY
+    analyst_count: 40
+    source: stockanalysis.com
+  INFY.NS:
+    street: BUY
+    analyst_count: 42
+    source: stockanalysis.com
+  ICICIBANK.NS:
+    street: STRONG BUY
+    analyst_count: 39
+    source: stockanalysis.com
+  HINDUNILVR.NS:
+    street: HOLD
+    analyst_count: 35
+    source: consensus
+  ITC.NS:
+    street: BUY
+    analyst_count: 38
+    source: ET Jul 2025
+  SBIN.NS:
+    street: BUY
+    analyst_count: 36
+    source: ET Jul 2025
+  BHARTIARTL.NS:
+    street: BUY
+    analyst_count: 35
+    source: PL Capital
+  KOTAKBANK.NS:
+    street: HOLD
+    analyst_count: 34
+    source: consensus
+  LT.NS:
+    street: BUY
+    analyst_count: 32
+    source: consensus
+  AXISBANK.NS:
+    street: BUY
+    analyst_count: 35
+    source: ET Jul 2025
+  ASIANPAINT.NS:
+    street: HOLD
+    analyst_count: 30
+    source: consensus
+  MARUTI.NS:
+    street: BUY
+    analyst_count: 33
+    source: ET Jul 2025
+  TITAN.NS:
+    street: BUY
+    analyst_count: 28
+    source: PL Capital
+  SUNPHARMA.NS:
+    street: BUY
+    analyst_count: 30
+    source: stockanalysis.com
+  BAJFINANCE.NS:
+    street: BUY
+    analyst_count: 32
+    source: consensus
+  WIPRO.NS:
+    street: HOLD
+    analyst_count: 35
+    source: stockanalysis.com
+  HCLTECH.NS:
+    street: HOLD
+    analyst_count: 35
+    source: stockanalysis.com
+  ULTRACEMCO.NS:
+    street: BUY
+    analyst_count: 28
+    source: ET Jul 2025
+  ONGC.NS:
+    street: HOLD
+    analyst_count: 25
+    source: consensus
+  TATASTEEL.NS:
+    street: HOLD
+    analyst_count: 28
+    source: consensus
+  NTPC.NS:
+    street: BUY
+    analyst_count: 26
+    source: consensus
+  POWERGRID.NS:
+    street: HOLD
+    analyst_count: 24
+    source: consensus
+  M&M.NS:
+    street: BUY
+    analyst_count: 30
+    source: ET Jul 2025
+  ADANIENT.NS:
+    street: HOLD
+    analyst_count: 22
+    source: consensus
+  JSWSTEEL.NS:
+    street: HOLD
+    analyst_count: 28
+    source: consensus
+  TATAMOTORS.NS:
+    street: BUY
+    analyst_count: 30
+    source: consensus
+  INDUSINDBK.NS:
+    street: BUY
+    analyst_count: 30
+    source: consensus
+  GRASIM.NS:
+    street: BUY
+    analyst_count: 22
+    source: consensus
+  COALINDIA.NS:
+    street: HOLD
+    analyst_count: 24
+    source: consensus
+  HINDALCO.NS:
+    street: BUY
+    analyst_count: 26
+    source: consensus
+  DIVISLAB.NS:
+    street: BUY
+    analyst_count: 24
+    source: consensus
+  SBILIFE.NS:
+    street: BUY
+    analyst_count: 28
+    source: consensus
+  BPCL.NS:
+    street: HOLD
+    analyst_count: 31
+    source: stockanalysis.com
+  CIPLA.NS:
+    street: BUY
+    analyst_count: 28
+    source: consensus
+  EICHERMOT.NS:
+    street: BUY
+    analyst_count: 24
+    source: consensus
+  HEROMOTOCO.NS:
+    street: BUY
+    analyst_count: 36
+    source: stockanalysis.com
+  BAJAJ-AUTO.NS:
+    street: BUY
+    analyst_count: 26
+    source: consensus
+  DRREDDY.NS:
+    street: BUY
+    analyst_count: 26
+    source: consensus
+  TRENT.NS:
+    street: BUY
+    analyst_count: 22
+    source: consensus
+  APOLLOHOSP.NS:
+    street: BUY
+    analyst_count: 24
+    source: PL Capital
+  BEL.NS:
+    street: BUY
+    analyst_count: 20
+    source: consensus
+  SHRIRAMFIN.NS:
+    street: BUY
+    analyst_count: 26
+    source: consensus
+  HDFCLIFE.NS:
+    street: BUY
+    analyst_count: 28
+    source: consensus
+  ADANIPORTS.NS:
+    street: BUY
+    analyst_count: 28
+    source: CNBC-TV18
+  TECHM.NS:
+    street: HOLD
+    analyst_count: 30
+    source: BusinessToday
+  PIDILITIND.NS:
+    street: STRONG BUY
+    analyst_count: 24
+    source: stocktargetadvisor
+  BAJAJFINSV.NS:
+    street: STRONG BUY
+    analyst_count: 26
+    source: stocktargetadvisor
+  JIOFIN.NS:
+    street: HOLD
+    analyst_count: 22
+    source: consensus

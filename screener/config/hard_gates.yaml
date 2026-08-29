@@ -1,0 +1,45 @@
+# Sector-specific hard gate thresholds (used by screener/scoring/hard_gates.py)
+defaults:
+  roe_hard_min: -5.0
+  roe_red_min: 0.0
+  op_margin_hard_min: -2.0
+  op_margin_red_min: 0.0
+  interest_coverage_hard_min: 0.8
+
+sectors:
+  energy:
+    margin_distortion:
+      enabled: true
+      op_margin_hard_min: -2.0
+      min_roe_pct: 8.0
+      min_market_cap: 500000000000
+      min_fcf_positive: true
+
+  auto:
+    debt_to_equity:
+      hard: 4.0
+      red: 3.5
+
+  fmcg:
+    debt_to_equity:
+      hard: 4.0
+      red: 3.5
+
+  pharma:
+    debt_to_equity:
+      hard: 4.0
+      red: 3.5
+
+  banking:
+    gnpa_hard: 3.5
+    nnpa_hard: 1.2
+    car_hard_min: 12.0
+
+  it:
+    op_margin_hard_min: 0.0
+    debt_to_equity_hard: 2.5
+    debt_to_equity_red: 2.0
+
+  insurance:
+    solvency_hard_min: 150.0
+    persistency_hard_min: 75.0

@@ -1,0 +1,268 @@
+# Full NSE universe — organizational buckets with scoring metadata
+# analysis_depth: deep (Banking, IT) | standard (all others)
+
+banking:
+  model_sector: BANKING
+  display_sector: Financial Services
+  analysis_depth: deep
+  cyclical: false
+  private:
+    - HDFCBANK.NS
+    - ICICIBANK.NS
+    - KOTAKBANK.NS
+    - AXISBANK.NS
+    - INDUSINDBK.NS
+    - FEDERALBNK.NS
+    - IDFCFIRSTB.NS
+    - AUBANK.NS
+    - RBLBANK.NS
+    - YESBANK.NS
+    - BANDHANBNK.NS
+    - BAJFINANCE.NS
+    - BAJAJFINSV.NS
+    - JIOFIN.NS
+    - SHRIRAMFIN.NS
+    - CHOLAFIN.NS
+    - MUTHOOTFIN.NS
+    - KARURVYSYA.NS
+    - CSBBANK.NS
+    - CUB.NS
+    - DCBBANK.NS
+    - J&KBANK.NS
+    - SOUTHBANK.NS
+    - EQUITASBNK.NS
+    - UJJIVANSFB.NS
+    - JSFB.NS
+  psu:
+    - SBIN.NS
+    - BANKBARODA.NS
+    - CANBK.NS
+    - INDIANB.NS
+    - UNIONBANK.NS
+    - PNB.NS
+    - MAHABANK.NS
+    - IDBI.NS
+    - UCOBANK.NS
+    - CENTRALBK.NS
+    - IOB.NS
+
+insurance:
+  model_sector: INSURANCE
+  display_sector: Financial Services
+  analysis_depth: deep
+  cyclical: false
+  tickers:
+    - HDFCLIFE.NS
+    - SBILIFE.NS
+
+it:
+  model_sector: IT
+  display_sector: Technology
+  analysis_depth: deep
+  cyclical: false
+  tickers:
+    - TCS.NS
+    - INFY.NS
+    - WIPRO.NS
+    - HCLTECH.NS
+    - TECHM.NS
+    - LTTS.NS
+    - MPHASIS.NS
+    - PERSISTENT.NS
+    - COFORGE.NS
+    - CYIENT.NS
+    - ZENSARTECH.NS
+    - KPITTECH.NS
+    - TATAELXSI.NS
+    - OFSS.NS
+    - SONATSOFTW.NS
+    - INTELLECT.NS
+    - NEWGEN.NS
+    - BSOFT.NS
+    - ECLERX.NS
+    - HAPPSTMNDS.NS
+    - MASTEK.NS
+    - NAUKRI.NS
+    - NETWEB.NS
+    - TANLA.NS
+    - HEXT.NS
+    - AFFLE.NS
+    - MAPMYINDIA.NS
+    - ROUTE.NS
+    - DATAPATTNS.NS
+    - REDINGTON.NS
+    - LATENTVIEW.NS
+
+fmcg:
+  model_sector: FMCG
+  display_sector: Consumer Defensive
+  analysis_depth: standard
+  cyclical: false
+  tickers:
+    - HINDUNILVR.NS
+    - NESTLEIND.NS
+    - DABUR.NS
+    - BRITANNIA.NS
+    - ITC.NS
+    - MARICO.NS
+    - GODREJCP.NS
+    - TATACONSUM.NS
+    - UBL.NS
+    - COLPAL.NS
+    - ASIANPAINT.NS
+    - PIDILITIND.NS
+    - VBL.NS
+    - RADICO.NS
+    - EVEREADY.NS
+    - JUBLFOOD.NS
+    - BIKAJI.NS
+    - EMAMILTD.NS
+    - HONASA.NS
+    - DMART.NS
+    - INDHOTEL.NS
+
+pharma:
+  model_sector: PHARMA
+  display_sector: Healthcare
+  analysis_depth: standard
+  cyclical: false
+  tickers:
+    - SUNPHARMA.NS
+    - DRREDDY.NS
+    - CIPLA.NS
+    - DIVISLAB.NS
+    - BIOCON.NS
+    - LUPIN.NS
+    - TORNTPHARM.NS
+    - AUROPHARMA.NS
+    - ALKEM.NS
+    - GLENMARK.NS
+    - NATCOPHARM.NS
+    - ZYDUSLIFE.NS
+    - LAURUSLABS.NS
+    - GRANULES.NS
+    - IPCALAB.NS
+    - LALPATHLAB.NS
+    - APOLLOHOSP.NS
+    - SYNGENE.NS
+    - PIIND.NS
+
+auto:
+  model_sector: AUTO
+  display_sector: Consumer Cyclical
+  analysis_depth: standard
+  cyclical: true
+  tickers:
+    - MARUTI.NS
+    - EICHERMOT.NS
+    - HEROMOTOCO.NS
+    - TRENT.NS
+    - TITAN.NS
+    - BAJAJ-AUTO.NS
+    - TVSMOTOR.NS
+    - MOTHERSON.NS
+    - BALKRISIND.NS
+    - IRCTC.NS
+    - PAGEIND.NS
+    - ASHOKLEY.NS
+    - BHARATFORG.NS
+    - ESCORTS.NS
+    - MRF.NS
+    - TATAMOTORS.NS
+
+energy:
+  model_sector: ENERGY
+  display_sector: Energy
+  analysis_depth: standard
+  cyclical: true
+  tickers:
+    - RELIANCE.NS
+    - ONGC.NS
+    - IOC.NS
+    - BPCL.NS
+    - GAIL.NS
+    - OIL.NS
+    - PETRONET.NS
+    - HINDPETRO.NS
+    - ATGL.NS
+    - ADANIGREEN.NS
+    - ADANIENT.NS
+    - TATAPOWER.NS
+    - NTPC.NS
+    - COALINDIA.NS
+    - NHPC.NS
+    - SJVN.NS
+    - IREDA.NS
+    - POWERGRID.NS
+    - TORNTPOWER.NS
+
+metals:
+  model_sector: METALS
+  display_sector: Basic Materials
+  analysis_depth: standard
+  cyclical: true
+  tickers:
+    - HINDALCO.NS
+    - JSWSTEEL.NS
+    - TATASTEEL.NS
+    - NATIONALUM.NS
+    - VEDL.NS
+    - HINDZINC.NS
+    - SAIL.NS
+    - JINDALSTEL.NS
+    - APLAPOLLO.NS
+    - GRASIM.NS
+    - NMDC.NS
+    - HINDCOPPER.NS
+    - WELCORP.NS
+    - MOIL.NS
+
+capital_goods:
+  model_sector: CAPITAL_GOODS
+  display_sector: Industrials
+  analysis_depth: standard
+  cyclical: true
+  tickers:
+    - SIEMENS.NS
+    - ABB.NS
+    - CUMMINSIND.NS
+    - HAVELLS.NS
+    - VOLTAS.NS
+    - SKFINDIA.NS
+    - BOSCHLTD.NS
+    - CGPOWER.NS
+    - POLYCAB.NS
+    - LT.NS
+    - BHEL.NS
+    - THERMAX.NS
+    - CROMPTON.NS
+    - BEML.NS
+    - HAL.NS
+    - KEI.NS
+    - KIRLOSENG.NS
+    - ADANIPORTS.NS
+    - M&M.NS
+    - ABFRL.NS
+    - MCX.NS
+    - BSE.NS
+    - INDIGO.NS
+    - HCC.NS
+    - KAYNES.NS
+    - PRAKASH.NS
+    - DIXON.NS
+    - GODREJIND.NS
+    - TITAGARH.NS
+    - SUNFLAG.NS
+    - ULTRACEMCO.NS
+    - AMBUJACEM.NS
+    - SHREECEM.NS
+    - SCHAEFFLER.NS
+    - TIMKEN.NS
+    - ASTRAL.NS
+    - SUPREMEIND.NS
+    - BEL.NS
+    - GRSE.NS
+    - CONCOR.NS
+    - BHARTIARTL.NS
+    - DLF.NS
+    - GODREJPROP.NS

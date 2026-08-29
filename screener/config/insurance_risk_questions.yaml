@@ -1,0 +1,71 @@
+sector: insurance
+questions:
+  - id: IQ1
+    question: Is the insurer adequately capitalized?
+    dimension: solvency_risk
+    metrics: [solvency_ratio_pct]
+    signals:
+      good: { solvency_ratio_pct: { op: ">", value: 180.0 } }
+      warn: { solvency_ratio_pct: { op: ">", value: 150.0 } }
+      bad: {}
+    weight: 1.5
+
+  - id: IQ2
+    question: Is new business quality strong?
+    dimension: growth_risk
+    metrics: [vnb_margin_pct, aum_growth_pct]
+    signals:
+      good: { vnb_margin_pct: { op: ">", value: 15.0 } }
+      warn: { vnb_margin_pct: { op: ">", value: 8.0 } }
+      bad: {}
+    weight: 1.3
+
+  - id: IQ3
+    question: Are persistency trends healthy?
+    dimension: franchise_risk
+    metrics: [persistency_13m_pct]
+    signals:
+      good: { persistency_13m_pct: { op: ">", value: 85.0 } }
+      warn: { persistency_13m_pct: { op: ">", value: 75.0 } }
+      bad: {}
+    weight: 1.2
+
+  - id: IQ4
+    question: Is the franchise generating solid returns?
+    dimension: earnings_risk
+    metrics: [roe_pct, pb]
+    signals:
+      good: { roe_pct: { op: ">", value: 12.0 } }
+      warn: { roe_pct: { op: ">", value: 8.0 } }
+      bad: {}
+    weight: 1.2
+
+  - id: IQ5
+    question: Is valuation reasonable for an insurer?
+    dimension: valuation_risk
+    metrics: [valuation_label, pb]
+    signals:
+      good: { valuation_label: { op: "in", values: ["Under", "Fair"] } }
+      warn: { valuation_label: { op: "in", values: ["Fair"] } }
+      bad: {}
+    weight: 1.0
+
+  - id: IQ6
+    question: Is price momentum acceptable?
+    dimension: market_risk
+    metrics: [return_6m_pct, rs_vs_nifty_pct]
+    signals:
+      good: { rs_vs_nifty_pct: { op: ">", value: -10.0 } }
+      warn: { rs_vs_nifty_pct: { op: ">", value: -20.0 } }
+      bad: {}
+    weight: 1.0
+
+  - id: IQ7
+    question: Is data sufficient to trust this score?
+    dimension: data_risk
+    metrics: [data_completeness]
+    signals:
+      good: { data_completeness: { op: ">", value: 0.6 } }
+      warn: { data_completeness: { op: ">", value: 0.4 } }
+      bad: {}
+    weight: 1.0

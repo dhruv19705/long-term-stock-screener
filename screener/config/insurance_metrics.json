@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "as_of": "2026-08-01",
+    "source": "Annual reports / IR disclosures (approximate)"
+  },
+  "HDFCLIFE.NS": {
+    "solvency_ratio_pct": 190.0,
+    "vnb_margin_pct": 26.5,
+    "persistency_13m_pct": 88.0,
+    "aum_growth_pct": 16.0
+  },
+  "SBILIFE.NS": {
+    "solvency_ratio_pct": 205.0,
+    "vnb_margin_pct": 28.0,
+    "persistency_13m_pct": 85.5,
+    "aum_growth_pct": 18.0
+  }
+}

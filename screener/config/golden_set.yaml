@@ -1,0 +1,462 @@
+version: 2026-08
+tickers:
+  HDFCBANK.NS:
+    street: BUY
+    cap_tier: large
+    sector: banking
+    source: stockanalysis.com
+  ICICIBANK.NS:
+    street: STRONG BUY
+    cap_tier: large
+    sector: banking
+    source: stockanalysis.com
+  SBIN.NS:
+    street: BUY
+    cap_tier: large
+    sector: banking
+    source: ET Jul 2025
+  KOTAKBANK.NS:
+    street: HOLD
+    cap_tier: large
+    sector: banking
+    source: consensus
+  AXISBANK.NS:
+    street: BUY
+    cap_tier: large
+    sector: banking
+    source: ET Jul 2025
+  INDUSINDBK.NS:
+    street: BUY
+    cap_tier: large
+    sector: banking
+    source: consensus
+  ADANIPORTS.NS:
+    street: BUY
+    cap_tier: large
+    sector: infra
+    source: CNBC-TV18
+  TCS.NS:
+    street: BUY
+    cap_tier: large
+    sector: it
+    source: stockanalysis.com
+  INFY.NS:
+    street: BUY
+    cap_tier: large
+    sector: it
+    source: stockanalysis.com
+  HCLTECH.NS:
+    street: HOLD
+    cap_tier: large
+    sector: it
+    source: stockanalysis.com
+  WIPRO.NS:
+    street: HOLD
+    cap_tier: large
+    sector: it
+    source: stockanalysis.com
+  TECHM.NS:
+    street: HOLD
+    cap_tier: large
+    sector: it
+    source: BusinessToday
+  PERSISTENT.NS:
+    street: BUY
+    cap_tier: mid
+    sector: it
+    source: consensus
+  ITC.NS:
+    street: BUY
+    cap_tier: large
+    sector: fmcg
+    source: ET Jul 2025
+  HINDUNILVR.NS:
+    street: HOLD
+    cap_tier: large
+    sector: fmcg
+    source: consensus
+  NESTLEIND.NS:
+    street: HOLD
+    cap_tier: large
+    sector: fmcg
+    source: consensus
+  MARUTI.NS:
+    street: BUY
+    cap_tier: large
+    sector: auto
+    source: ET Jul 2025
+  BAJAJ-AUTO.NS:
+    street: BUY
+    cap_tier: large
+    sector: auto
+    source: consensus
+  HEROMOTOCO.NS:
+    street: BUY
+    cap_tier: large
+    sector: auto
+    source: stockanalysis.com
+  EICHERMOT.NS:
+    street: BUY
+    cap_tier: large
+    sector: auto
+    source: consensus
+  TITAN.NS:
+    street: BUY
+    cap_tier: large
+    sector: consumer
+    source: PL Capital
+  SUNPHARMA.NS:
+    street: BUY
+    cap_tier: large
+    sector: pharma
+    source: stockanalysis.com
+  DIVISLAB.NS:
+    street: BUY
+    cap_tier: large
+    sector: pharma
+    source: consensus
+  DRREDDY.NS:
+    street: BUY
+    cap_tier: large
+    sector: pharma
+    source: consensus
+  RELIANCE.NS:
+    street: BUY
+    cap_tier: large
+    sector: energy
+    source: stockanalysis.com
+  BPCL.NS:
+    street: HOLD
+    cap_tier: large
+    sector: energy
+    source: stockanalysis.com
+  JSWSTEEL.NS:
+    street: HOLD
+    cap_tier: large
+    sector: metals
+    source: consensus
+  LT.NS:
+    street: BUY
+    cap_tier: large
+    sector: industrials
+    source: consensus
+  ULTRACEMCO.NS:
+    street: BUY
+    cap_tier: large
+    sector: materials
+    source: ET Jul 2025
+  M&M.NS:
+    street: BUY
+    cap_tier: large
+    sector: auto
+    source: ET Jul 2025
+  CANBK.NS:
+    street: BUY
+    cap_tier: large
+    sector: banking
+    source: consensus
+  BANKBARODA.NS:
+    street: BUY
+    cap_tier: large
+    sector: banking
+    source: consensus
+  FEDERALBNK.NS:
+    street: HOLD
+    cap_tier: mid
+    sector: banking
+    source: consensus
+  BANDHANBNK.NS:
+    street: BUY
+    cap_tier: mid
+    sector: banking
+    source: stocktargetadvisor
+  PNB.NS:
+    street: HOLD
+    cap_tier: large
+    sector: banking
+    source: consensus
+  IDFCFIRSTB.NS:
+    street: HOLD
+    cap_tier: mid
+    sector: banking
+    source: consensus
+  COFORGE.NS:
+    street: BUY
+    cap_tier: mid
+    sector: it
+    source: BusinessToday
+  MPHASIS.NS:
+    street: BUY
+    cap_tier: mid
+    sector: it
+    source: consensus
+  OFSS.NS:
+    street: HOLD
+    cap_tier: mid
+    sector: it
+    source: consensus
+  KPITTECH.NS:
+    street: BUY
+    cap_tier: mid
+    sector: it
+    source: consensus
+  LTTS.NS:
+    street: HOLD
+    cap_tier: mid
+    sector: it
+    source: consensus
+  NAUKRI.NS:
+    street: HOLD
+    cap_tier: mid
+    sector: it
+    source: consensus
+  DABUR.NS:
+    street: HOLD
+    cap_tier: large
+    sector: fmcg
+    source: consensus
+  BRITANNIA.NS:
+    street: HOLD
+    cap_tier: large
+    sector: fmcg
+    source: consensus
+  MARICO.NS:
+    street: BUY
+    cap_tier: large
+    sector: fmcg
+    source: consensus
+  GODREJCP.NS:
+    street: BUY
+    cap_tier: large
+    sector: fmcg
+    source: consensus
+  COLPAL.NS:
+    street: HOLD
+    cap_tier: large
+    sector: fmcg
+    source: consensus
+  TATACONSUM.NS:
+    street: HOLD
+    cap_tier: large
+    sector: fmcg
+    source: consensus
+  CIPLA.NS:
+    street: BUY
+    cap_tier: large
+    sector: pharma
+    source: consensus
+  LUPIN.NS:
+    street: BUY
+    cap_tier: large
+    sector: pharma
+    source: PL Capital
+  ALKEM.NS:
+    street: BUY
+    cap_tier: large
+    sector: pharma
+    source: consensus
+  TORNTPHARM.NS:
+    street: BUY
+    cap_tier: mid
+    sector: pharma
+    source: consensus
+  ZYDUSLIFE.NS:
+    street: BUY
+    cap_tier: large
+    sector: pharma
+    source: consensus
+  BIOCON.NS:
+    street: HOLD
+    cap_tier: mid
+    sector: pharma
+    source: consensus
+  TVSMOTOR.NS:
+    street: BUY
+    cap_tier: large
+    sector: auto
+    source: consensus
+  BHARATFORG.NS:
+    street: HOLD
+    cap_tier: mid
+    sector: auto
+    source: consensus
+  TRENT.NS:
+    street: BUY
+    cap_tier: large
+    sector: consumer
+    source: consensus
+  PAGEIND.NS:
+    street: HOLD
+    cap_tier: large
+    sector: consumer
+    source: consensus
+  ONGC.NS:
+    street: HOLD
+    cap_tier: large
+    sector: energy
+    source: consensus
+  NTPC.NS:
+    street: BUY
+    cap_tier: large
+    sector: energy
+    source: consensus
+  COALINDIA.NS:
+    street: HOLD
+    cap_tier: large
+    sector: energy
+    source: consensus
+  GAIL.NS:
+    street: HOLD
+    cap_tier: large
+    sector: energy
+    source: consensus
+  HINDALCO.NS:
+    street: BUY
+    cap_tier: large
+    sector: metals
+    source: consensus
+  VEDL.NS:
+    street: HOLD
+    cap_tier: large
+    sector: metals
+    source: consensus
+  JINDALSTEL.NS:
+    street: STRONG BUY
+    cap_tier: large
+    sector: metals
+    source: stocktargetadvisor
+  ABB.NS:
+    street: BUY
+    cap_tier: large
+    sector: industrials
+    source: PL Capital
+  HAL.NS:
+    street: BUY
+    cap_tier: large
+    sector: industrials
+    source: PL Capital
+  INDIGO.NS:
+    street: BUY
+    cap_tier: large
+    sector: industrials
+    source: PL Capital
+  BHARTIARTL.NS:
+    street: BUY
+    cap_tier: large
+    sector: telecom
+    source: PL Capital
+  ASIANPAINT.NS:
+    street: HOLD
+    cap_tier: large
+    sector: consumer
+    source: consensus
+  BAJFINANCE.NS:
+    street: BUY
+    cap_tier: large
+    sector: financials
+    source: consensus
+  BAJAJFINSV.NS:
+    street: STRONG BUY
+    cap_tier: large
+    sector: financials
+    source: stocktargetadvisor
+  PIDILITIND.NS:
+    street: STRONG BUY
+    cap_tier: large
+    sector: consumer
+    source: stocktargetadvisor
+  AMBUJACEM.NS:
+    street: STRONG BUY
+    cap_tier: large
+    sector: materials
+    source: stocktargetadvisor
+  APOLLOHOSP.NS:
+    street: BUY
+    cap_tier: large
+    sector: healthcare
+    source: PL Capital
+  POWERGRID.NS:
+    street: HOLD
+    cap_tier: large
+    sector: utilities
+    source: consensus
+  TATAMOTORS.NS:
+    street: BUY
+    cap_tier: large
+    sector: auto
+    source: consensus
+  HDFCLIFE.NS:
+    street: BUY
+    cap_tier: large
+    sector: financials
+    source: consensus
+  SBILIFE.NS:
+    street: BUY
+    cap_tier: large
+    sector: financials
+    source: consensus
+  ADANIENT.NS:
+    street: HOLD
+    cap_tier: large
+    sector: energy
+    source: consensus
+  JIOFIN.NS:
+    street: HOLD
+    cap_tier: large
+    sector: financials
+    source: consensus
+  SHRIRAMFIN.NS:
+    street: BUY
+    cap_tier: large
+    sector: financials
+    source: consensus
+  TATASTEEL.NS:
+    street: HOLD
+    cap_tier: large
+    sector: metals
+    source: consensus
+  GRASIM.NS:
+    street: BUY
+    cap_tier: large
+    sector: materials
+    source: consensus
+  BEL.NS:
+    street: BUY
+    cap_tier: large
+    sector: industrials
+    source: consensus
+  DMART.NS:
+    street: BUY
+    cap_tier: large
+    sector: consumer
+    source: consensus
+  CHOLAFIN.NS:
+    street: BUY
+    cap_tier: large
+    sector: financials
+    source: consensus
+  MUTHOOTFIN.NS:
+    street: BUY
+    cap_tier: large
+    sector: financials
+    source: consensus
+  INDHOTEL.NS:
+    street: BUY
+    cap_tier: large
+    sector: consumer
+    source: consensus
+  DLF.NS:
+    street: BUY
+    cap_tier: large
+    sector: real_estate
+    source: consensus
+  GODREJPROP.NS:
+    street: HOLD
+    cap_tier: large
+    sector: real_estate
+    source: consensus
+  PIIND.NS:
+    street: BUY
+    cap_tier: mid
+    sector: pharma
+    source: consensus

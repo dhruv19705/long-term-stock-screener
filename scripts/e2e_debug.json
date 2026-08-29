@@ -1,0 +1,40 @@
+{
+  "exclude": true,
+  "fit": 83.0,
+  "reasons": [
+    "Red flag (\u221235)",
+    "Hard risk gate failed",
+    "Undervalued (+8)",
+    "Strong composite (+10)"
+  ],
+  "hard_gate": true,
+  "red_flag": true,
+  "val": "Under",
+  "qs": [
+    [
+      "GQ1",
+      "leverage_risk",
+      "unknown"
+    ],
+    [
+      "GQ2",
+      "valuation_risk",
+      "good"
+    ],
+    [
+      "GQ3",
+      "earnings_risk",
+      "bad"
+    ],
+    [
+      "GQ4",
+      "market_risk",
+      "good"
+    ],
+    [
+      "GQ5",
+      "data_risk",
+      "good"
+    ]
+  ]
+}

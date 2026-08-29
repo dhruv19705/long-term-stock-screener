@@ -1,0 +1,62 @@
+cache_dir: .cache/screener
+cache_ttl_hours: 24
+max_workers: 8
+min_price_history_rows: 20
+min_completeness: 0.35
+min_peers_for_rank: 10
+it_large_min_peers: 5
+benchmark_nifty: "^NSEI"
+benchmark_bank: "^NSEBANK"
+winsor_low: 0.05
+winsor_high: 0.95
+
+cap_tiers:
+  mega: 2000000000000   # ₹2T+
+  large: 500000000000   # ₹500B+
+
+# HOLD floor only for Grade A/B + Fair large/mega names (not Over).
+cap_floor:
+  mega: HOLD
+  large: HOLD
+  floor_exceptions: [hard_gate_fail, red_flag]
+
+# Absolute action cuts — not in-universe percentiles.
+action_book:
+  sell_rs: -10
+  avoid_rs: -15
+  strong_buy_fair_rs: 0
+  banking:
+    roe_soft_min: 8.0
+    gnpa_soft_max: 2.8
+  it:
+    op_margin_soft_min: 12.0
+
+# Benchmark/street calibration — off in production UI (scripts/tests only)
+benchmark_calibration:
+  street_overlay: false
+  index_anchor: false
+
+sector_calibration:
+  enabled: true
+  target_mean: 57.5
+  insurance_min_peers: 5
+
+composite_weights:
+  banking:
+    asset_quality: 0.30
+    franchise: 0.25
+    valuation: 0.25
+    momentum: 0.10
+    risk_penalty: 0.10
+  it:
+    margin_quality: 0.25
+    growth: 0.30
+    valuation: 0.25
+    momentum: 0.10
+    risk_penalty: 0.10
+  insurance:
+    solvency_quality: 0.25
+    franchise_growth: 0.30
+    valuation: 0.25
+    momentum: 0.10
+    risk_penalty: 0.10

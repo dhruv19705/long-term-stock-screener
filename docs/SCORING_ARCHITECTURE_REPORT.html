@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Full Universe NSE Stock Screener — Technical Report</title>
+  <style>
+    @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+    @media print {
+      .page-break { page-break-before: always; }
+      body { font-size: 9.5pt; }
+      nav.toc a { color: inherit; text-decoration: none; }
+      h2 { page-break-after: avoid; }
+      table { page-break-inside: avoid; }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", Georgia, "Times New Roman", serif;
+      line-height: 1.55;
+      color: #1a1a1a;
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 24px 28px 48px;
+      background: #fff;
+    }
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      border-bottom: 3px solid #142850;
+      padding-bottom: 48px;
+      margin-bottom: 40px;
+    }
+    .cover h1 { font-size: 2.3rem; color: #142850; margin: 0 0 12px; }
+    .cover .subtitle { font-size: 1.2rem; color: #444; margin-bottom: 28px; }
+    .cover .meta { font-size: 0.92rem; color: #666; line-height: 1.9; }
+    h2 { color: #142850; font-size: 1.3rem; border-bottom: 2px solid #dce4f0; padding-bottom: 5px; margin-top: 1.8rem; }
+    h3 { color: #234; font-size: 1.02rem; margin-top: 1.2rem; }
+    h4 { color: #456; font-size: 0.95rem; margin-top: 1rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin: 10px 0 16px; }
+    th, td { border: 1px solid #ccd5e0; padding: 6px 8px; text-align: left; vertical-align: top; }
+    th { background: #e8eef6; font-weight: 600; }
+    tr:nth-child(even) td { background: #f8fafc; }
+    code { font-family: Consolas, monospace; font-size: 0.85em; background: #f4f6f9; padding: 1px 4px; border-radius: 2px; }
+    pre {
+      font-family: Consolas, monospace;
+      font-size: 0.82rem;
+      background: #f4f6f9;
+      padding: 10px 12px;
+      border-left: 3px solid #142850;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    ul, ol { margin: 6px 0 14px; padding-left: 1.4rem; }
+    li { margin: 3px 0; }
+    .callout {
+      background: #f0f4fa;
+      border-left: 4px solid #142850;
+      padding: 10px 14px;
+      margin: 14px 0;
+      font-size: 0.9rem;
+    }
+    nav.toc ol { line-height: 1.85; }
+    .footer-note { margin-top: 40px; font-size: 0.78rem; color: #888; text-align: center; border-top: 1px solid #ddd; padding-top: 14px; }
+    .badge { display: inline-block; background: #142850; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; margin-bottom: 8px; }
+    .file-ref { font-size: 0.82rem; color: #555; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<section class="cover">
+  <span class="badge">TECHNICAL REPORT v2.0</span>
+  <h1>Full Universe NSE<br>Stock Screener</h1>
+  <p class="subtitle">Architecture, Scoring Methodology &amp; Sector Models</p>
+  <div class="meta">
+    <strong>Document type:</strong> Technical Reference Report<br>
+    <strong>Recommendation engine:</strong> Strategy v3 (Three-Axis)<br>
+    <strong>Universe:</strong> ~181 tickers · 8 sector buckets<br>
+    <strong>Stack:</strong> Python screener · FastAPI · React UI<br>
+    <strong>Date:</strong> August 2026
+  </div>
+</section>
+
+<nav class="toc page-break">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li><a href="#s1">Executive Summary</a></li>
+    <li><a href="#s2">High-Level Architecture</a></li>
+    <li><a href="#s3">Sector Taxonomy &amp; Peer Groups</a></li>
+    <li><a href="#s4">Data Acquisition Layer</a></li>
+    <li><a href="#s5">Pipeline &amp; Quality Control</a></li>
+    <li><a href="#s6">Scoring Framework</a></li>
+    <li><a href="#s7">Sector-Specific Models</a></li>
+    <li><a href="#s8">Recommendation Engine (v3)</a></li>
+    <li><a href="#s9">Interpretation Engine</a></li>
+    <li><a href="#s10">Profile Matching</a></li>
+    <li><a href="#s11">Configuration Reference</a></li>
+    <li><a href="#s12">API, UI &amp; Scripts</a></li>
+    <li><a href="#s13">Worked Examples</a></li>
+    <li><a href="#s14">Extending the System</a></li>
+    <li><a href="#s15">Appendix — Glossary &amp; File Index</a></li>
+  </ol>
+</nav>
+
+<section id="s1" class="page-break">
+  <h2>1. Executive Summary</h2>
+  <p>This report documents the full-universe Indian equity screener: classification, data fetching, multi-factor scoring, rule-based interpretation, and personalized recommendations matched to investor risk profiles.</p>
+  <div class="callout"><strong>Core principle:</strong> Sectors are <em>curated</em> in <code>universe.yaml</code>, not fetched from Yahoo Finance. yfinance supplies market data and fundamentals only.</div>
+  <h3>Key capabilities</h3>
+  <ul>
+    <li><strong>181 NSE tickers</strong> across banking, IT, FMCG, pharma, auto, energy, metals, capital goods</li>
+    <li><strong>Two-tier analysis:</strong> deep (Banking, IT — 7 risk questions) vs standard (5 questions)</li>
+    <li><strong>Peer-relative scoring</strong> within sector cohorts (private vs PSU banks split)</li>
+    <li><strong>Three-axis recommendations:</strong> Quality grade (A–F) · Peer band · Action label</li>
+    <li><strong>Large-cap floor:</strong> Mega/large caps cannot fall below HOLD unless hard gates fail</li>
+    <li><strong>Rule-based inference:</strong> YAML + Python; no LLM in the scoring path</li>
+  </ul>
+  <h3>Typical recommendation distribution</h3>
+  <table>
+    <tr><th>Action</th><th>Approx. share</th></tr>
+    <tr><td>STRONG BUY / BUY</td><td>~30–35%</td></tr>
+    <tr><td>HOLD</td><td>~40–45%</td></tr>
+    <tr><td>AVOID / SELL</td><td>~20–25%</td></tr>
+  </table>
+</section>
+
+<section id="s2" class="page-break">
+  <h2>2. High-Level Architecture</h2>
+  <pre>universe.yaml + sector_weights.yaml + settings.yaml
+        ↓
+   fetcher.py (yfinance + 24h cache + NSE fallback)
+        ↓
+   pipeline._qc() → dropped tickers filtered
+        ↓
+   peer_stats.enrich_sector_relative_momentum()
+        ↓
+   score_universe() → composite.py / generic.py
+        ↓
+   interpret_universe() → stock_analyst.py
+        ↓
+   recommend_for_profile() → risk_matcher.py
+        ↓
+   FastAPI / CLI / React UI</pre>
+  <h3>Design principles</h3>
+  <ol>
+    <li>Sectors are curated in config, not from Yahoo.</li>
+    <li>Two scoring engines: deep (Banking, IT) and standard (all others).</li>
+    <li>Composite scores are peer-relative within cohorts.</li>
+    <li>Recommendations use three axes before producing the action label.</li>
+    <li>All inference is deterministic and rule-based.</li>
+  </ol>
+  <table>
+    <tr><th>Layer</th><th>Modules</th><th>Output</th></tr>
+    <tr><td>Config</td><td>config_loader.py, universe.yaml</td><td>Ticker metadata, peer sets</td></tr>
+    <tr><td>Data</td><td>fetcher.py, banking.py, normalize.py</td><td>StockMetrics</td></tr>
+    <tr><td>Score</td><td>composite.py, generic.py, action_matrix.py</td><td>ScoreResult</td></tr>
+    <tr><td>Interpret</td><td>stock_analyst.py, signals.py, narrative.py</td><td>StockInterpretation</td></tr>
+    <tr><td>Match</td><td>risk_matcher.py, questionnaire.py</td><td>FitResult / picks</td></tr>
+  </table>
+</section>
+
+<section id="s3">
+  <h2>3. Sector Taxonomy &amp; Peer Groups</h2>
+  <h3>3.1 Eight buckets (<code>sector_focus</code>)</h3>
+  <table>
+    <tr><th>Bucket</th><th>Model</th><th>Depth</th><th>Cyclical</th><th>Peer group</th></tr>
+    <tr><td>banking</td><td>BANKING</td><td>deep</td><td>No</td><td>private OR psu sub-cohort</td></tr>
+    <tr><td>it</td><td>IT</td><td>deep</td><td>No</td><td>all IT tickers (~31)</td></tr>
+    <tr><td>fmcg</td><td>FMCG</td><td>standard</td><td>No</td><td>FMCG bucket</td></tr>
+    <tr><td>pharma</td><td>PHARMA</td><td>standard</td><td>No</td><td>Pharma bucket</td></tr>
+    <tr><td>auto</td><td>AUTO</td><td>standard</td><td>Yes</td><td>Auto bucket</td></tr>
+    <tr><td>energy</td><td>ENERGY</td><td>standard</td><td>Yes</td><td>Energy bucket</td></tr>
+    <tr><td>metals</td><td>METALS</td><td>standard</td><td>Yes</td><td>Metals bucket</td></tr>
+    <tr><td>capital_goods</td><td>CAPITAL_GOODS</td><td>standard</td><td>Yes</td><td>Industrials bucket</td></tr>
+  </table>
+  <p class="file-ref">Defined in: screener/config/universe.yaml · Loaded by: config_loader.py</p>
+  <h3>3.2 Why sectors are not from yfinance</h3>
+  <ul>
+    <li>Indian NSE symbols often have missing or US-style labels.</li>
+    <li>Custom metadata needed: analysis_depth, cyclical, bank_cohort.</li>
+    <li>Peer groups align with Indian conventions (PSU vs private banks).</li>
+  </ul>
+  <h3>3.3 Peer cohorts</h3>
+  <table>
+    <tr><th>Cohort key</th><th>Peers</th></tr>
+    <tr><td>banking_private</td><td>All private banks in universe</td></tr>
+    <tr><td>banking_psu</td><td>All PSU banks in universe</td></tr>
+    <tr><td>it</td><td>All IT tickers</td></tr>
+    <tr><td>{bucket}</td><td>All tickers in same bucket</td></tr>
+  </table>
+</section>
+
+<section id="s4" class="page-break">
+  <h2>4. Data Acquisition Layer</h2>
+  <table>
+    <tr><th>Data</th><th>Primary source</th><th>Override / fallback</th></tr>
+    <tr><td>Price history (5y)</td><td>yfinance history()</td><td>NSE chart API if too short</td></tr>
+    <tr><td>PE, PB, ROE, margins, mcap</td><td>yfinance get_info()</td><td>—</td></tr>
+    <tr><td>Financial statements</td><td>yfinance statements</td><td>CAGR, credit growth</td></tr>
+    <tr><td>GNPA, NNPA, CAR, NIM</td><td>banking_metrics.json</td><td>Curated override</td></tr>
+    <tr><td>Sector assignment</td><td>universe.yaml</td><td>Never from Yahoo</td></tr>
+  </table>
+  <h3>Fetch flow (fetcher.py)</h3>
+  <ol>
+    <li>Resolve ticker metadata from universe.yaml.</li>
+    <li>Try yfinance via ticker_aliases.yaml (M&amp;M.NS, CUB.NS).</li>
+    <li>Pull get_info(), statements, 5y history.</li>
+    <li>Compute returns, beta, volatility, drawdown vs ^NSEI.</li>
+    <li>Banks: enrich_banking_metrics() merges curated ratios.</li>
+    <li>sanitize_metrics() clamps outliers.</li>
+    <li>Cache JSON 24h under .cache/screener/.</li>
+  </ol>
+</section>
+
+<section id="s5">
+  <h2>5. Pipeline &amp; Quality Control</h2>
+  <p class="file-ref">Orchestrator: screener/pipeline.py (ScreenState singleton for API)</p>
+  <pre>fetch_all_metrics → QC filter → enrich_sector_relative_momentum → score_universe → interpret_universe</pre>
+  <h3>QC drop conditions</h3>
+  <ul>
+    <li>fetch_failed = true</li>
+    <li>sector_focus = unknown</li>
+    <li>price_history_rows &lt; min_price_history_rows (default 20)</li>
+    <li>both PE and PB missing</li>
+    <li>data_completeness &lt; min_completeness (default 0.35)</li>
+  </ul>
+  <p>After QC: <code>rs_vs_sector_pct</code> = 6m return minus sector median 6m return.</p>
+</section>
+
+<section id="s6" class="page-break">
+  <h2>6. Scoring Framework</h2>
+  <h3>Routing (score_universe)</h3>
+  <pre>for each peer group:
+  if deep + banking  → _score_banking()
+  elif deep + it     → _score_it()
+  else               → score_generic_group()</pre>
+  <h3>Shared utilities (factors.py)</h3>
+  <table>
+    <tr><th>Function</th><th>Purpose</th></tr>
+    <tr><td>soft_score_higher / lower</td><td>Map metric to 0–1 via thresholds</td></tr>
+    <tr><td>percentile_rank</td><td>Peer percentile 0–100, winsorized 5th–95th</td></tr>
+    <tr><td>shrink_percentile</td><td>Blend toward 50 when peers &lt; min_peers_for_rank (10)</td></tr>
+    <tr><td>weighted_mean</td><td>Composite factor blend, skips missing</td></tr>
+  </table>
+  <h3>ScoreResult fields</h3>
+  <p>composite_score, fundamental_strength, valuation_label, composite_percentile, peer_rank, peer_count, quality_grade, peer_band, recommendation, red_flag, hard_gate_fail, risk_flags, confidence.</p>
+</section>
+
+<section id="s7">
+  <h2>7. Sector-Specific Models</h2>
+  <h3>7.1 Banking (deep)</h3>
+  <table>
+    <tr><th>Factor</th><th>Weight</th><th>Key inputs</th></tr>
+    <tr><td>Asset quality</td><td>30%</td><td>GNPA, NNPA, CAR, GNPA peer pctile</td></tr>
+    <tr><td>Franchise</td><td>25%</td><td>NIM, ROA, ROE, peer pctiles</td></tr>
+    <tr><td>Valuation</td><td>25%</td><td>P/B–ROE residual regression</td></tr>
+    <tr><td>Momentum</td><td>10%</td><td>6m return pctile or RS</td></tr>
+    <tr><td>Risk penalty</td><td>10%</td><td>Max drawdown pctile</td></tr>
+  </table>
+  <p><strong>Hard gates:</strong> GNPA ≥ 3.5% · NNPA ≥ 1.2% · CAR &lt; 12%</p>
+  <p><strong>Risk questions:</strong> 7 (BQ1–BQ7) in banking_risk_questions.yaml</p>
+
+  <h3>7.2 IT (deep)</h3>
+  <table>
+    <tr><th>Factor</th><th>Weight</th><th>Key inputs</th></tr>
+    <tr><td>Margin quality</td><td>25%</td><td>Op margin, margin trend, ROE</td></tr>
+    <tr><td>Growth</td><td>30%</td><td>Rev CAGR (fallback), profit growth</td></tr>
+    <tr><td>Valuation</td><td>25%</td><td>PEG, P/E vs peers, FCF yield</td></tr>
+    <tr><td>Momentum</td><td>10%</td><td>6m return or RS</td></tr>
+    <tr><td>Risk penalty</td><td>10%</td><td>Drawdown pctile</td></tr>
+  </table>
+  <p><strong>Hard gates:</strong> op margin &lt; 0 · ROE &lt; 0 · D/E &gt; 2.5</p>
+
+  <h3>7.3 Standard sectors (generic.py + sector_weights.yaml)</h3>
+  <table>
+    <tr><th>Sector</th><th>Quality</th><th>Growth</th><th>Value</th><th>Momentum</th><th>Notes</th></tr>
+    <tr><td>FMCG</td><td>35%</td><td>15%</td><td>25%</td><td>10%</td><td>risk 15%</td></tr>
+    <tr><td>PHARMA</td><td>35%</td><td>25%</td><td>20%</td><td>10%</td><td>risk 10%</td></tr>
+    <tr><td>AUTO</td><td>25%</td><td>25%</td><td>25%</td><td>15%</td><td>cyclical</td></tr>
+    <tr><td>ENERGY</td><td>28%</td><td>12%</td><td>28%</td><td>12%</td><td>cashflow 18%</td></tr>
+    <tr><td>METALS</td><td>22%</td><td>18%</td><td>32%</td><td>15%</td><td>value-heavy</td></tr>
+    <tr><td>CAPITAL_GOODS</td><td>30%</td><td>30%</td><td>20%</td><td>10%</td><td>growth focus</td></tr>
+  </table>
+  <p><strong>Generic hard gates:</strong> ROE &lt; −5% · op margin &lt; −2% · D/E &gt; 3 (4 for FMCG/pharma) · interest coverage &lt; 0.8</p>
+</section>
+
+<section id="s8" class="page-break">
+  <h2>8. Recommendation Engine (Three-Axis v3)</h2>
+  <h3>Axis 1 — Absolute quality (quality_grade.py)</h3>
+  <pre>quality_score = 0.45 × fundamental_strength
+              + 0.40 × (composite_score / 100)
+              + 0.15 × data_completeness</pre>
+  <table>
+    <tr><th>Grade</th><th>Criteria</th></tr>
+    <tr><td>A</td><td>quality ≥ 0.75, no red flag</td></tr>
+    <tr><td>B</td><td>quality ≥ 0.55</td></tr>
+    <tr><td>C</td><td>quality ≥ 0.40</td></tr>
+    <tr><td>D</td><td>Below C or red flag with low quality</td></tr>
+    <tr><td>F</td><td>hard_gate_fail</td></tr>
+  </table>
+  <h3>Axis 2 — Peer band</h3>
+  <table>
+    <tr><th>Band</th><th>Percentile</th></tr>
+    <tr><td>Top</td><td>≥ 70</td></tr>
+    <tr><td>Upper-Mid</td><td>50–70</td></tr>
+    <tr><td>Lower-Mid</td><td>30–50</td></tr>
+    <tr><td>Bottom</td><td>&lt; 30</td></tr>
+  </table>
+  <h3>Axis 3 — Action label (action_matrix.py)</h3>
+  <ol>
+    <li>Hard gate fail → SELL if Over, else AVOID</li>
+    <li>Grade A/B + Top/Upper-Mid + not Over → STRONG BUY or BUY</li>
+    <li>Grade A/B + Under → BUY (value opportunity)</li>
+    <li>Grade A/B/C + not Bottom → HOLD</li>
+    <li>Bottom + Over → AVOID</li>
+    <li>Large-cap floor (≥ ₹500B): minimum HOLD unless hard_gate or red_flag</li>
+    <li>Confidence &lt; 0.35: downgrade one step on action ladder</li>
+  </ol>
+</section>
+
+<section id="s9">
+  <h2>9. Interpretation Engine</h2>
+  <p class="file-ref">stock_analyst.py · signals.py · narrative.py</p>
+  <ol>
+    <li>Load 7 (deep) or 5 (standard) risk questions from YAML.</li>
+    <li>Build context from metrics + score.</li>
+    <li>Apply sector_risk_overrides.yaml band overrides.</li>
+    <li>evaluate_signal() → good / warn / bad per question.</li>
+    <li>stock_risk_score = weighted average (0–100).</li>
+    <li>Re-run assign_action() after confidence update.</li>
+    <li>Generate headline, bull/bear, key risk, verdict.</li>
+  </ol>
+  <table>
+    <tr><th>Analysis type</th><th>Sectors</th><th>Questions</th></tr>
+    <tr><td>Deep</td><td>Banking, IT</td><td>7 sector-specific</td></tr>
+    <tr><td>Standard</td><td>All others</td><td>5 generic + overrides</td></tr>
+  </table>
+</section>
+
+<section id="s10" class="page-break">
+  <h2>10. Profile Matching &amp; Personalization</h2>
+  <p class="file-ref">risk_matcher.py · risk_profile_matrix.yaml</p>
+  <h3>Profile fit formula (0–100)</h3>
+  <pre>fit = 0.27 × risk_alignment
+    + 0.25 × quality_norm
+    + 0.18 × valuation_fit
+    + 0.10 × profile_bonus
+    + 0.20 × composite_score</pre>
+  <h3>Diversification rules</h3>
+  <ul>
+    <li>Top 20 picks total, max 3 per sector</li>
+    <li>Minimum 2 banking + 2 IT (deep_sector_min)</li>
+    <li>Conservative: excludes cyclical sectors, high beta, overvaluation</li>
+  </ul>
+  <p>Output: FitResult with fit_score, quality_grade, peer_percentile, peer_band, action_label, reasons[].</p>
+</section>
+
+<section id="s11">
+  <h2>11. Configuration Reference</h2>
+  <table>
+    <tr><th>File</th><th>Purpose</th></tr>
+    <tr><td>universe.yaml</td><td>Ticker lists, buckets, depth, cyclical</td></tr>
+    <tr><td>settings.yaml</td><td>Cache, QC, composite weights, cap tiers</td></tr>
+    <tr><td>sector_weights.yaml</td><td>Standard sector factor weights</td></tr>
+    <tr><td>banking_metrics.json</td><td>Curated bank GNPA/NNPA/CAR/NIM</td></tr>
+    <tr><td>*_risk_questions.yaml</td><td>Banking/IT/generic risk Q definitions</td></tr>
+    <tr><td>sector_risk_overrides.yaml</td><td>Per-sector signal band overrides</td></tr>
+    <tr><td>risk_profile_matrix.yaml</td><td>Matcher penalties, diversification</td></tr>
+    <tr><td>user_questionnaire.yaml</td><td>Investor profile questionnaire</td></tr>
+    <tr><td>ticker_aliases.yaml</td><td>yfinance symbol fallbacks</td></tr>
+  </table>
+</section>
+
+<section id="s12">
+  <h2>12. API, UI &amp; Operational Scripts</h2>
+  <table>
+    <tr><th>Endpoint / Script</th><th>Purpose</th></tr>
+    <tr><td>GET /api/screen</td><td>Full scored universe</td></tr>
+    <tr><td>GET /api/stock/{t}/interpret</td><td>Stock interpretation</td></tr>
+    <tr><td>POST /api/recommend</td><td>Profile-matched picks</td></tr>
+    <tr><td>GET /api/sectors/{sector}/summary</td><td>Sector aggregates</td></tr>
+    <tr><td>scripts/e2e_audit.py</td><td>End-to-end audit</td></tr>
+    <tr><td>scripts/sector_audit.py</td><td>Per-sector breakdown</td></tr>
+    <tr><td>scripts/rec_audit.py</td><td>Blue-chip sanity check</td></tr>
+    <tr><td>python -m pytest</td><td>41+ automated tests</td></tr>
+  </table>
+</section>
+
+<section id="s13" class="page-break">
+  <h2>13. Worked Examples</h2>
+  <h3>ZYDUSLIFE.NS (Pharma, standard)</h3>
+  <ol>
+    <li>Bucket pharma from universe.yaml.</li>
+    <li>Generic PHARMA weights → composite ~83.</li>
+    <li>Top peer percentile → grade A → STRONG BUY.</li>
+    <li>Stock risk ~23. High profile fit for Capital Preservation.</li>
+  </ol>
+  <h3>TCS.NS (IT, deep)</h3>
+  <ol>
+    <li>Deep IT scorer; may rank Bottom vs 31 IT peers.</li>
+    <li>Quality grade B. Large-cap floor → HOLD minimum.</li>
+    <li>Seven IT risk questions including PEG valuation.</li>
+  </ol>
+  <h3>HDFCBANK.NS (Banking, deep)</h3>
+  <ol>
+    <li>Private bank cohort. Curated NNPA/CAR from JSON.</li>
+    <li>P/B–ROE residual valuation. Typically STRONG BUY or BUY, grade A.</li>
+  </ol>
+</section>
+
+<section id="s13b" class="page-break">
+  <h2>13b. Scoring Engine Improvements (v2.1)</h2>
+  <p class="file-ref">screener/scoring/adjustments.py · sector_bands.py · settings.yaml sector_calibration</p>
+  <h3>P0 — Correctness</h3>
+  <ul>
+    <li><strong>Quality grade</strong> decoupled from composite (85% fundamentals + 15% completeness only).</li>
+    <li><strong>Banking peer cap:</strong> no Top band without GNPA or NIM; completeness penalty on composite.</li>
+    <li><strong>Insurance:</strong> peer percentile disabled when cohort &lt; 5 names.</li>
+    <li><strong>Data QC:</strong> drop stocks with operating margin &lt; −20% (bad feed), except large energy names.</li>
+  </ul>
+  <h3>P1 — Sector fidelity</h3>
+  <ul>
+    <li><strong>Generic sectors</strong> read ROE, ROCE, margin, growth, D/E bands from sector_weights.yaml.</li>
+    <li><strong>FMCG</strong> uses EBITDA margin when available.</li>
+    <li><strong>Auto / Metals</strong> cyclical margin penalty applied inside composite.</li>
+    <li><strong>Banking valuation label</strong> from P/B–ROE residual, absolute bands as fallback.</li>
+    <li><strong>IT growth</strong> deduplicated to revenue CAGR + profit CAGR only.</li>
+  </ul>
+  <h3>P2 — Calibration &amp; audit</h3>
+  <ul>
+    <li><strong>Sector calibration:</strong> shift composites per cohort to target mean 57.5 before peer ranking.</li>
+    <li><strong>Audit script:</strong> <code>python scripts/sector_scoring_audit.py</code> → docs/sector_scoring_audit.json</li>
+    <li><strong>Golden-set backtest</strong> included in sector audit output.</li>
+  </ul>
+  <table>
+    <tr><th>Sector model</th><th>Engine</th><th>Key factors</th></tr>
+    <tr><td>Banking</td><td>Deep</td><td>GNPA, NIM, CAR, P/B–ROE residual, private/PSU cohorts</td></tr>
+    <tr><td>IT</td><td>Deep</td><td>Margin quality, CAGR growth, PEG/FCF valuation, large/mid peers</td></tr>
+    <tr><td>Insurance</td><td>Deep</td><td>Solvency, VNB, persistency; no peer rank if n&lt;5</td></tr>
+    <tr><td>FMCG / Pharma / Auto / Energy / Metals / Cap Goods</td><td>Generic + overlay</td><td>YAML weights + sector metric bands</td></tr>
+  </table>
+</section>
+
+<section id="s14">
+  <h2>14. Extending the System</h2>
+  <h3>Add a ticker</h3>
+  <ol>
+    <li>Add to universe.yaml in the appropriate list.</li>
+    <li>Verify yfinance symbol; add alias if needed.</li>
+    <li>For banks: add banking_metrics.json entry.</li>
+    <li>Run <code>python cli.py screen --sector all --refresh</code>.</li>
+    <li>Check scripts/sector_audit.py.</li>
+  </ol>
+  <h3>Do not</h3>
+  <ul>
+    <li>Rely on yfinance sector for bucketing.</li>
+    <li>Compare composite scores across different peer cohorts.</li>
+  </ul>
+</section>
+
+<section id="s15" class="page-break">
+  <h2>15. Appendix — Glossary &amp; File Index</h2>
+  <table>
+    <tr><th>Term</th><th>Definition</th></tr>
+    <tr><td>sector_focus</td><td>Internal bucket: banking, it, fmcg, …</td></tr>
+    <tr><td>model_sector</td><td>Scoring model key: BANKING, IT, FMCG, …</td></tr>
+    <tr><td>composite_score</td><td>0–100 weighted factor score</td></tr>
+    <tr><td>composite_percentile</td><td>Rank within peer cohort</td></tr>
+    <tr><td>quality_grade</td><td>A–F from fundamentals + completeness (not composite)</td></tr>
+    <tr><td>peer_band</td><td>Top / Upper-Mid / Lower-Mid / Bottom</td></tr>
+    <tr><td>action_label</td><td>STRONG BUY | BUY | HOLD | AVOID | SELL</td></tr>
+    <tr><td>fit_score</td><td>0–100 profile match for picks</td></tr>
+    <tr><td>rs_vs_sector_pct</td><td>6m return minus sector median</td></tr>
+  </table>
+  <h3>Key source files</h3>
+  <pre>screener/config/          All YAML/JSON configuration
+screener/scoring/         composite, generic, adjustments, sector_bands, action_matrix
+screener/interpret/       stock_analyst, risk_matcher
+api/main.py               FastAPI
+web/                      React UI
+docs/SCORING_ARCHITECTURE.md   Full markdown reference</pre>
+</section>
+
+<p class="footer-note">
+  PDF: docs/SCORING_ARCHITECTURE_REPORT.pdf · Markdown: docs/SCORING_ARCHITECTURE.md<br>
+  Regenerate PDF: <code>python scripts/generate_scoring_report_pdf.py</code> · Print HTML: Ctrl+P → Save as PDF
+</p>
+
+</body>
+</html>

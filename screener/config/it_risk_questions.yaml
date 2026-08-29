@@ -1,0 +1,71 @@
+sector: it
+questions:
+  - id: IQ1
+    question: Is the business highly profitable?
+    dimension: margin_risk
+    metrics: [roe_pct, operating_margin_pct]
+    signals:
+      good: { roe_pct: { op: ">", value: 20.0 }, operating_margin_pct: { op: ">", value: 16.0 } }
+      warn: { roe_pct: { op: ">", value: 14.0 }, operating_margin_pct: { op: ">", value: 12.0 } }
+      bad: {}
+    weight: 1.5
+
+  - id: IQ2
+    question: Are margins stable or expanding?
+    dimension: margin_trend
+    metrics: [operating_margin_trend_pct]
+    signals:
+      good: { operating_margin_trend_pct: { op: ">", value: 0.0 } }
+      warn: { operating_margin_trend_pct: { op: ">", value: -3.0 } }
+      bad: {}
+    weight: 1.0
+
+  - id: IQ3
+    question: Is revenue growth healthy?
+    dimension: growth_risk
+    metrics: [revenue_cagr_3y_pct, revenue_growth_pct]
+    signals:
+      good: { revenue_cagr_3y_pct: { op: ">", value: 10.0 } }
+      warn: { revenue_cagr_3y_pct: { op: ">", value: 6.0 } }
+      bad: {}
+    weight: 1.5
+
+  - id: IQ4
+    question: Is growth priced in?
+    dimension: valuation_risk
+    metrics: [peg, valuation_label]
+    signals:
+      good: { peg: { op: "<", value: 1.2 } }
+      warn: { peg: { op: "<", value: 2.0 } }
+      bad: {}
+    weight: 1.0
+
+  - id: IQ5
+    question: Is the balance sheet clean?
+    dimension: leverage_risk
+    metrics: [debt_to_equity]
+    signals:
+      good: { debt_to_equity: { op: "<", value: 0.5 } }
+      warn: { debt_to_equity: { op: "<", value: 1.2 } }
+      bad: {}
+    weight: 1.0
+
+  - id: IQ6
+    question: Is momentum supportive?
+    dimension: market_risk
+    metrics: [return_6m_pct, rs_vs_nifty_pct]
+    signals:
+      good: { rs_vs_nifty_pct: { op: ">", value: 0.0 } }
+      warn: { rs_vs_nifty_pct: { op: ">", value: -10.0 } }
+      bad: {}
+    weight: 1.0
+
+  - id: IQ7
+    question: Quality compounder or stretched?
+    dimension: quality_risk
+    metrics: [composite_score, valuation_label]
+    signals:
+      good: { composite_score: { op: ">", value: 65.0 }, valuation_label: { op: "in", values: ["Under", "Fair"] } }
+      warn: { composite_score: { op: ">", value: 45.0 } }
+      bad: {}
+    weight: 1.0

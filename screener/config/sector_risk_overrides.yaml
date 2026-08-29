@@ -1,0 +1,46 @@
+# Per-sector overrides for generic risk question signal bands
+cyclical_buckets: [auto, energy, metals, capital_goods]
+
+overrides:
+  GQ3:
+    cyclical:
+      good:
+        roe_pct: { op: ">", value: 6.0 }
+      warn:
+        roe_pct: { op: ">", value: 0.0 }
+      bad: {}
+    defensive:
+      good:
+        roe_pct: { op: ">", value: 10.0 }
+        operating_margin_pct: { op: ">", value: 8.0 }
+      warn:
+        roe_pct: { op: ">", value: 6.0 }
+      bad: {}
+    fmcg:
+      good:
+        roe_pct: { op: ">", value: 8.0 }
+      warn:
+        roe_pct: { op: ">", value: 4.0 }
+      bad: {}
+
+  GQ4:
+    cyclical:
+      good:
+        rs_vs_nifty_pct: { op: ">", value: -10.0 }
+      warn:
+        rs_vs_nifty_pct: { op: ">", value: -20.0 }
+      bad: {}
+    defensive:
+      good:
+        rs_vs_nifty_pct: { op: ">", value: -5.0 }
+      warn:
+        rs_vs_nifty_pct: { op: ">", value: -15.0 }
+      bad: {}
+
+  GQ1:
+    banking:
+      good:
+        car_pct: { op: ">", value: 12.0 }
+      warn:
+        car_pct: { op: ">", value: 10.0 }
+      bad: {}

@@ -1,0 +1,222 @@
+{
+  "universe_count": 200,
+  "overall_rec": {
+    "HOLD": 68,
+    "STRONG BUY": 26,
+    "BUY": 67,
+    "AVOID": 35,
+    "SELL": 4
+  },
+  "sector_stats": {
+    "auto": {
+      "count": 16,
+      "mean_composite": 57.5,
+      "std_composite": 9.4,
+      "rec_distribution": {
+        "HOLD": 5,
+        "BUY": 6,
+        "AVOID": 3,
+        "STRONG BUY": 2
+      },
+      "val_distribution": {
+        "Over": 13,
+        "Under": 3
+      },
+      "factor_means": {
+        "quality": 0.787,
+        "growth": 0.794,
+        "value": 0.463,
+        "momentum": 0.5,
+        "risk_penalty": 0.5
+      }
+    },
+    "banking": {
+      "count": 37,
+      "mean_composite": 57.5,
+      "std_composite": 14.5,
+      "rec_distribution": {
+        "HOLD": 10,
+        "STRONG BUY": 7,
+        "AVOID": 10,
+        "BUY": 10
+      },
+      "val_distribution": {
+        "Over": 9,
+        "Fair": 14,
+        "Under": 14
+      },
+      "factor_means": {
+        "asset_quality": 0.559,
+        "franchise": 0.681,
+        "valuation": 0.464,
+        "momentum": 0.5,
+        "risk_penalty": 0.5
+      }
+    },
+    "capital_goods": {
+      "count": 41,
+      "mean_composite": 57.5,
+      "std_composite": 11.3,
+      "rec_distribution": {
+        "HOLD": 16,
+        "STRONG BUY": 3,
+        "BUY": 12,
+        "AVOID": 8,
+        "SELL": 2
+      },
+      "val_distribution": {
+        "Over": 29,
+        "Fair": 9,
+        "Under": 3
+      },
+      "factor_means": {
+        "quality": 0.715,
+        "growth": 0.701,
+        "value": 0.397,
+        "momentum": 0.5,
+        "risk_penalty": 0.5
+      }
+    },
+    "energy": {
+      "count": 19,
+      "mean_composite": 57.5,
+      "std_composite": 17.5,
+      "rec_distribution": {
+        "HOLD": 8,
+        "SELL": 1,
+        "BUY": 6,
+        "STRONG BUY": 3,
+        "AVOID": 1
+      },
+      "val_distribution": {
+        "Over": 10,
+        "Under": 6,
+        "Fair": 3
+      },
+      "factor_means": {
+        "quality": 0.734,
+        "growth": 0.557,
+        "value": 0.55,
+        "momentum": 0.5,
+        "risk_penalty": 0.5,
+        "cashflow": 0.579
+      }
+    },
+    "fmcg": {
+      "count": 21,
+      "mean_composite": 57.5,
+      "std_composite": 10.8,
+      "rec_distribution": {
+        "HOLD": 8,
+        "BUY": 9,
+        "STRONG BUY": 2,
+        "AVOID": 2
+      },
+      "val_distribution": {
+        "Over": 15,
+        "Fair": 3,
+        "Under": 3
+      },
+      "factor_means": {
+        "quality": 0.845,
+        "growth": 0.668,
+        "value": 0.404,
+        "momentum": 0.5,
+        "risk_penalty": 0.5
+      }
+    },
+    "insurance": {
+      "count": 2,
+      "mean_composite": 57.5,
+      "std_composite": 1.7,
+      "rec_distribution": {
+        "HOLD": 2
+      },
+      "val_distribution": {
+        "Over": 2
+      },
+      "factor_means": {
+        "solvency_quality": 1.0,
+        "franchise_growth": 0.708,
+        "valuation": 0.5,
+        "momentum": 0.5,
+        "risk_penalty": 0.5
+      }
+    },
+    "it": {
+      "count": 31,
+      "mean_composite": 57.5,
+      "std_composite": 12.2,
+      "rec_distribution": {
+        "HOLD": 8,
+        "AVOID": 8,
+        "STRONG BUY": 4,
+        "BUY": 11
+      },
+      "val_distribution": {
+        "Over": 8,
+        "Under": 11,
+        "Fair": 12
+      },
+      "factor_means": {
+        "margin_quality": 0.653,
+        "growth": 0.639,
+        "valuation": 0.556,
+        "momentum": 0.5,
+        "risk_penalty": 0.5
+      }
+    },
+    "metals": {
+      "count": 14,
+      "mean_composite": 57.5,
+      "std_composite": 13.7,
+      "rec_distribution": {
+        "HOLD": 5,
+        "SELL": 1,
+        "BUY": 6,
+        "AVOID": 1,
+        "STRONG BUY": 1
+      },
+      "val_distribution": {
+        "Over": 10,
+        "Fair": 4
+      },
+      "factor_means": {
+        "quality": 0.882,
+        "growth": 0.638,
+        "value": 0.628,
+        "momentum": 0.5,
+        "risk_penalty": 0.5
+      }
+    },
+    "pharma": {
+      "count": 19,
+      "mean_composite": 57.5,
+      "std_composite": 13.4,
+      "rec_distribution": {
+        "BUY": 7,
+        "STRONG BUY": 4,
+        "HOLD": 6,
+        "AVOID": 2
+      },
+      "val_distribution": {
+        "Fair": 3,
+        "Over": 9,
+        "Under": 7
+      },
+      "factor_means": {
+        "quality": 0.839,
+        "growth": 0.654,
+        "value": 0.45,
+        "momentum": 0.5,
+        "risk_penalty": 0.5
+      }
+    }
+  },
+  "golden_alignment": {
+    "matched": 91,
+    "direction_pct": 51.6,
+    "severity_pct": 87.9,
+    "false_sell_on_buy_large": 1
+  }
+}

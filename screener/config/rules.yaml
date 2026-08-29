@@ -1,0 +1,12 @@
+# Legacy absolute thresholds — live gates in screener/config/hard_gates.yaml
+# See screener/scoring/hard_gates.py
+banking:
+  gnpa_good: 1.5
+  gnpa_bad: 3.0
+  car_good: 16.0
+  car_bad: 12.0
+it:
+  roe_good: 22.0
+  roe_bad: 10.0
+  operating_margin_good: 18.0
+  operating_margin_bad: 8.0

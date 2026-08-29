@@ -1,0 +1,74 @@
+# Fit scoring per risk profile id
+profiles:
+  conservative:
+    max_stock_risk: 40
+    max_beta: 1.15
+    exclude_valuation: ["Over"]
+    require_hard_gates: true
+    penalties:
+      stock_risk_over_max: 30
+      valuation_over: 25
+      bad_leverage: 35
+      bad_market_risk: 25
+      red_flag: 40
+      high_beta: 15
+      cyclical_sector: 20
+    bonuses:
+      valuation_under: 10
+      low_drawdown: 5
+
+  moderate:
+    max_stock_risk: 55
+    max_beta: 1.35
+    exclude_valuation: []
+    require_hard_gates: true
+    penalties:
+      stock_risk_over_max: 20
+      valuation_over: 10
+      bad_leverage: 25
+      red_flag: 35
+      high_beta: 10
+    bonuses:
+      valuation_under: 8
+      composite_over_70: 10
+      deep_sector_fit: 8
+
+  growth:
+    max_stock_risk: 65
+    max_beta: 1.6
+    exclude_valuation: []
+    require_hard_gates: false
+    penalties:
+      stock_risk_over_max: 15
+      red_flag: 30
+      weak_growth: 15
+    bonuses:
+      strong_growth: 12
+      valuation_under_with_growth: 10
+
+  aggressive:
+    max_stock_risk: 80
+    max_beta: 2.0
+    exclude_valuation: []
+    require_hard_gates: false
+    penalties:
+      red_flag: 25
+      stock_risk_over_max: 10
+    bonuses:
+      strong_momentum: 12
+      strong_growth: 10
+      composite_over_70: 8
+
+fit_labels:
+  - { min: 80, label: Excellent }
+  - { min: 60, label: Good }
+  - { min: 40, label: Fair }
+  - { min: 0, label: Poor }
+
+matcher:
+  top_n_total: 20
+  top_n_per_sector: 3
+  min_fit_score: 45
+  sector_floor_quotas:
+    banking: 2
+    it: 2
