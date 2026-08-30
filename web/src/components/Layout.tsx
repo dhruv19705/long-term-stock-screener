@@ -1,4 +1,5 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { Logo } from "./Logo";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `rounded-lg px-3 py-2 text-sm font-medium transition ${
@@ -11,14 +12,16 @@ export function Layout() {
       <header className="sticky top-0 z-50 border-b border-slate-200/60 bg-[#eef2f7]/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <Link to="/universe" className="group flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent text-sm font-bold text-white shadow-sm">
-              SL
-            </span>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white p-1.5 shadow-sm ring-1 ring-slate-200/80 transition group-hover:shadow-md group-hover:scale-105">
+              <Logo className="h-full w-full drop-shadow-sm" />
+            </div>
             <div>
-              <span className="font-display text-xl font-bold tracking-tight text-ink group-hover:text-accent">
-                SectorLens
+              <span className="font-display text-xl font-bold tracking-wider text-ink group-hover:text-accent">
+                PRISM
               </span>
-              <p className="text-[11px] text-slate-500">India equity screener</p>
+              <p className="text-[10px] leading-tight text-slate-500 font-medium sm:text-[11px]">
+                Portfolio Risk &amp; Investment Screening Model
+              </p>
             </div>
           </Link>
           <nav className="flex flex-wrap items-center gap-1">
