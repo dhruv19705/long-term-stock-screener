@@ -1,4 +1,4 @@
-# SectorLens — NSE Stock Screener
+# PRISM — Portfolio Risk & Investment Screening Model
 
 Code-first India equity screener across the full configured NSE universe (banking, insurance, IT, FMCG, pharma, auto, energy, metals, capital goods):
 

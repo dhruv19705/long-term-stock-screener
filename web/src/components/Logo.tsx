@@ -1,0 +1,27 @@
+import React from "react";
+
+interface LogoProps extends React.SVGProps<SVGSVGElement> {
+  className?: string;
+  size?: number;
+}
+
+export function Logo({ className = "w-8 h-8", size, ...props }: LogoProps) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      fill="none"
+      width={size}
+      height={size}
+      className={className}
+      {...props}
+    >
+      {/* Top Tier */}
+      <polygon points="50,6 63.2,30 36.8,30" fill="#cfd2d6" />
+      {/* Middle Tier */}
+      <polygon points="35.2,33.5 64.8,33.5 78.1,58.5 21.9,58.5" fill="#989ba0" />
+      {/* Bottom Tier */}
+      <polygon points="20.3,62 79.7,62 94.2,88 5.8,88" fill="#4b4e53" />
+    </svg>
+  );
+}
