@@ -81,8 +81,8 @@ export default function Recommendations() {
       {Object.keys(bySector).length > 0 ? (
         Object.entries(bySector).map(([sector, picks]) => (
           <div key={sector} className="mb-10">
-            <h2 className="mb-4 font-display text-xl font-semibold capitalize text-ink">
-              {sectorLabel(sector)}
+            <h2 className="mb-4 font-display text-xl font-semibold text-ink">
+              {sectorLabel(sector)} sector
             </h2>
             <div className="grid gap-3">
               {[...picks].sort((a, b) => b.fit_score - a.fit_score).map((p) => (

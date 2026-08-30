@@ -139,7 +139,7 @@ export function UniverseTable({ rows, isLoading, sectorFilter, showSector = true
                     </Link>
                   </td>
                   {showSector && (
-                    <td className={`${tdBase} px-5 capitalize text-slate-600`}>{sectorLabel(row.sector_focus)}</td>
+                    <td className={`${tdBase} px-5 text-slate-600`}>{sectorLabel(row.sector_focus)}</td>
                   )}
                   <td className={`${tdBase} px-5`}>
                     <RecommendationBadge value={row.recommendation} />

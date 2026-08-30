@@ -34,7 +34,7 @@ export default function AllSectorsDashboard() {
             className="group rounded-2xl bg-white/95 p-5 shadow-sm ring-1 ring-slate-200/60 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-accent/30"
           >
             <div className="flex items-start justify-between">
-              <h2 className="font-display text-lg font-semibold capitalize text-ink group-hover:text-accent">
+              <h2 className="font-display text-lg font-semibold text-ink group-hover:text-accent">
                 {sectorLabel(s.id)}
               </h2>
             </div>
