@@ -33,19 +33,16 @@ def main() -> int:
 
     answers = {
         "horizon": "long",
-        "goal": "grow",
+        "objective": "balanced",
         "drawdown": "hold",
-        "income_need": "nice",
-        "experience": "intermediate",
+        "income_need": "moderate",
         "loss_tolerance": "med",
-        "volatility": "med",
-        "valuation": "fair",
-        "leverage": "mod",
-        "cyclical_pref": "balanced",
+        "volatility": "moderate",
         "liquidity": "no",
-        "concentration": "med",
-        "diversification": "yes",
-        "sector_exposure": "all",
+        "valuation_pref": "fair",
+        "cyclical_pref": "some",
+        "diversification": "moderate",
+        "sector_restrictions": "none",
     }
     profile = post("/api/questionnaire/submit", {"answers": answers}, timeout=30)
     print("profile", profile["id"], profile["sector_filter"])

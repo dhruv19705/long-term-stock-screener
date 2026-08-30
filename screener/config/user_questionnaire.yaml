@@ -9,47 +9,42 @@ profiles:
     label: High Conviction
 
 questions:
-  # Chapter: Goals
+  # Chapter A — Investment objective
   - id: horizon
-    text: What is your investment time horizon?
+    text: What is your investment horizon?
     options:
       - { id: short, label: Less than 1 year, scores: { conservative: 2, moderate: 0, growth: 0, aggressive: 0 } }
       - { id: mid, label: 1–3 years, scores: { conservative: 1, moderate: 2, growth: 1, aggressive: 0 } }
       - { id: long, label: 3–5 years, scores: { conservative: 0, moderate: 1, growth: 2, aggressive: 1 } }
       - { id: vlong, label: 5+ years, scores: { conservative: 0, moderate: 1, growth: 2, aggressive: 2 } }
 
-  - id: goal
-    text: What is your primary investment goal?
+  - id: objective
+    text: What is your primary investment objective?
     options:
-      - { id: preserve, label: Preserve capital, scores: { conservative: 3, moderate: 0, growth: 0, aggressive: 0 } }
-      - { id: income, label: Income / dividends, scores: { conservative: 2, moderate: 2, growth: 0, aggressive: 0 } }
-      - { id: grow, label: Grow wealth, scores: { conservative: 0, moderate: 1, growth: 3, aggressive: 1 } }
-      - { id: max, label: Maximize returns, scores: { conservative: 0, moderate: 0, growth: 1, aggressive: 3 } }
+      - { id: preserve, label: Capital preservation, scores: { conservative: 3, moderate: 0, growth: 0, aggressive: 0 } }
+      - { id: income, label: Income, scores: { conservative: 2, moderate: 2, growth: 0, aggressive: 0 } }
+      - { id: balanced, label: Balanced growth, scores: { conservative: 0, moderate: 3, growth: 1, aggressive: 0 } }
+      - { id: max, label: Maximum wealth creation, scores: { conservative: 0, moderate: 0, growth: 2, aggressive: 3 } }
 
   - id: income_need
-    text: How important is stable income from holdings?
+    text: How important is regular income from holdings?
     options:
-      - { id: critical, label: Critical, scores: { conservative: 3, moderate: 1, growth: 0, aggressive: 0 } }
-      - { id: nice, label: Nice to have, scores: { conservative: 1, moderate: 2, growth: 1, aggressive: 0 } }
-      - { id: none, label: Not needed, scores: { conservative: 0, moderate: 0, growth: 2, aggressive: 2 } }
+      - { id: high, label: High, scores: { conservative: 3, moderate: 1, growth: 0, aggressive: 0 } }
+      - { id: moderate, label: Moderate, scores: { conservative: 1, moderate: 3, growth: 1, aggressive: 0 } }
+      - { id: low, label: Low, scores: { conservative: 0, moderate: 1, growth: 2, aggressive: 1 } }
+      - { id: none, label: None, scores: { conservative: 0, moderate: 0, growth: 2, aggressive: 2 } }
 
-  - id: experience
-    text: How much investing experience do you have?
-    options:
-      - { id: beginner, label: Beginner (under 2 years), scores: { conservative: 2, moderate: 1, growth: 0, aggressive: 0 } }
-      - { id: intermediate, label: 2–5 years, scores: { conservative: 1, moderate: 2, growth: 1, aggressive: 1 } }
-      - { id: experienced, label: 5+ years, scores: { conservative: 0, moderate: 1, growth: 2, aggressive: 2 } }
-
-  # Chapter: Risk tolerance
+  # Chapter B — Risk tolerance
   - id: drawdown
-    text: How would you react to a 20% portfolio drop?
+    text: How would you react to a 20% portfolio decline?
     options:
-      - { id: sell, label: Sell to limit losses, scores: { conservative: 3, moderate: 0, growth: 0, aggressive: 0 } }
-      - { id: hold, label: Hold and wait, scores: { conservative: 1, moderate: 3, growth: 1, aggressive: 0 } }
-      - { id: buy, label: Buy more if thesis intact, scores: { conservative: 0, moderate: 1, growth: 2, aggressive: 3 } }
+      - { id: sell, label: Sell, scores: { conservative: 3, moderate: 0, growth: 0, aggressive: 0 } }
+      - { id: wait, label: Wait, scores: { conservative: 2, moderate: 2, growth: 1, aggressive: 0 } }
+      - { id: hold, label: Hold, scores: { conservative: 1, moderate: 3, growth: 1, aggressive: 0 } }
+      - { id: buy, label: Buy more, scores: { conservative: 0, moderate: 1, growth: 2, aggressive: 3 } }
 
   - id: loss_tolerance
-    text: Maximum acceptable loss on a single stock in one year?
+    text: Maximum acceptable loss on one stock in one year?
     options:
       - { id: low, label: Up to 10%, max_stock_risk: 35 }
       - { id: med, label: Up to 20%, max_stock_risk: 50 }
@@ -57,57 +52,47 @@ questions:
       - { id: very_high, label: 30%+, max_stock_risk: 80 }
 
   - id: volatility
-    text: What volatility are you comfortable with?
+    text: What is your comfort with short-term volatility?
     options:
-      - { id: low, label: Low, scores: { conservative: 3, moderate: 1, growth: 0, aggressive: 0 }, max_beta: 1.1 }
-      - { id: med, label: Medium, scores: { conservative: 0, moderate: 3, growth: 1, aggressive: 0 }, max_beta: 1.35 }
-      - { id: high, label: High, scores: { conservative: 0, moderate: 0, growth: 2, aggressive: 3 }, max_beta: 1.8 }
-
-  - id: valuation
-    text: How sensitive are you to valuation?
-    options:
-      - { id: strict, label: Won't buy expensive stocks, scores: { conservative: 3, moderate: 1, growth: 0, aggressive: 0 } }
-      - { id: fair, label: Fair valuation is fine, scores: { conservative: 1, moderate: 3, growth: 1, aggressive: 0 } }
-      - { id: pay, label: Will pay for quality/growth, scores: { conservative: 0, moderate: 0, growth: 2, aggressive: 3 } }
-
-  - id: leverage
-    text: Debt tolerance in portfolio holdings?
-    options:
-      - { id: low, label: Prefer low leverage only, scores: { conservative: 3, moderate: 1, growth: 0, aggressive: 0 } }
-      - { id: mod, label: Moderate leverage OK, scores: { conservative: 0, moderate: 3, growth: 1, aggressive: 0 } }
-      - { id: sector, label: Sector norms are fine, scores: { conservative: 0, moderate: 0, growth: 2, aggressive: 3 } }
+      - { id: very_low, label: Very low, scores: { conservative: 3, moderate: 1, growth: 0, aggressive: 0 } }
+      - { id: moderate, label: Moderate, scores: { conservative: 0, moderate: 3, growth: 1, aggressive: 0 } }
+      - { id: high, label: High, scores: { conservative: 0, moderate: 0, growth: 2, aggressive: 2 } }
+      - { id: very_high, label: Very high, scores: { conservative: 0, moderate: 0, growth: 1, aggressive: 3 } }
 
   - id: liquidity
-    text: Might you need to sell within 6 months?
+    text: Might you need to access this money within 6 months?
     options:
-      - { id: "yes", label: Yes — prefer lower volatility, needs_liquidity: true }
-      - { id: "no", label: No — can ride volatility, needs_liquidity: false }
+      - { id: "yes", label: May need money within 6 months, needs_liquidity: true }
+      - { id: "no", label: Don't need it, needs_liquidity: false }
 
-  # Chapter: Portfolio rules
+  # Chapter C — Investment preferences
+  - id: valuation_pref
+    text: What is your valuation preference?
+    options:
+      - { id: strict, label: Only buy reasonably valued, scores: { conservative: 3, moderate: 1, growth: 0, aggressive: 0 }, valuation_pref: strict }
+      - { id: fair, label: Fair price preferred, scores: { conservative: 1, moderate: 3, growth: 1, aggressive: 0 }, valuation_pref: fair }
+      - { id: quality, label: Will pay premium for quality, scores: { conservative: 0, moderate: 0, growth: 2, aggressive: 1 }, valuation_pref: quality }
+      - { id: growth, label: Will pay premium for high growth, scores: { conservative: 0, moderate: 0, growth: 3, aggressive: 2 }, valuation_pref: growth }
+
   - id: cyclical_pref
-    text: Cyclical vs defensive sector preference?
+    text: What is your cyclical-sector preference?
     options:
-      - { id: defensive, label: Prefer defensive (FMCG, Pharma), cyclical_ok: false, sector_filter: defensive }
-      - { id: balanced, label: Balanced mix, cyclical_ok: true, sector_filter: all }
-      - { id: cyclical, label: OK with cyclical (Auto, Metals, Energy), cyclical_ok: true, sector_filter: cyclical }
-      - { id: all, label: All sectors equally, cyclical_ok: true, sector_filter: all }
+      - { id: avoid, label: Avoid cyclical sectors, cyclical_ok: false, sector_filter: defensive }
+      - { id: some, label: Some cyclical exposure OK, cyclical_ok: true, sector_filter: all }
+      - { id: comfortable, label: Comfortable with cyclicals, cyclical_ok: true, sector_filter: all, scores: { conservative: 0, moderate: 1, growth: 2, aggressive: 1 } }
+      - { id: prefer, label: Prefer cyclical opportunities, cyclical_ok: true, sector_filter: cyclical, scores: { conservative: 0, moderate: 0, growth: 1, aggressive: 3 } }
 
-  - id: concentration
-    text: Maximum share of portfolio in one stock?
-    options:
-      - { id: low, label: Max 10%, max_concentration_pct: 10 }
-      - { id: med, label: Max 20%, max_concentration_pct: 20 }
-      - { id: high, label: Max 30%+, max_concentration_pct: 30 }
-
+  # Chapter D — Portfolio construction
   - id: diversification
-    text: Prefer recommendations spread across sectors?
+    text: What is your diversification preference?
     options:
-      - { id: "yes", label: Yes — diversify across sectors, diversify_sectors: true }
-      - { id: "no", label: No — best ideas only, diversify_sectors: false }
+      - { id: high, label: Highly diversified, diversification_level: high }
+      - { id: moderate, label: Moderately diversified, diversification_level: moderate }
+      - { id: concentrated, label: Concentrated best ideas, diversification_level: concentrated }
 
-  - id: sector_exposure
-    text: Any sector exposure preference?
+  - id: sector_restrictions
+    text: Any sector restrictions?
     options:
-      - { id: all, label: All sectors, sector_filter: all }
-      - { id: no_fin, label: Exclude financials/banks, sector_filter: no_financials }
-      - { id: deep_only, label: Financials & technology only, sector_filter: both }
+      - { id: none, label: No restrictions, sector_filter: all }
+      - { id: avoid_fin, label: Avoid financials/banks, sector_filter: no_financials }
+      - { id: fin_it_only, label: Financials & technology only, sector_filter: both }

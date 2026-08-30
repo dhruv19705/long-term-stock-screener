@@ -93,8 +93,9 @@ def recommend(body: RecommendRequest) -> Any:
         max_beta=body.max_beta if body.max_beta is not None else defaults["max_beta"],
         cyclical_ok=body.cyclical_ok if body.cyclical_ok is not None else defaults["cyclical_ok"],
         diversify_sectors=body.diversify_sectors if body.diversify_sectors is not None else True,
+        diversification_level=body.diversification_level or "moderate",
         needs_liquidity=body.needs_liquidity if body.needs_liquidity is not None else False,
-        max_concentration_pct=body.max_concentration_pct if body.max_concentration_pct is not None else 20.0,
+        valuation_pref=body.valuation_pref or "fair",
     )
     result = STATE.recommend(profile)
     return result.to_dict()

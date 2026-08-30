@@ -8,7 +8,7 @@ There are **two questionnaires** in the product. Do not mix them up:
 
 | Questionnaire | Who answers it | What it produces |
 |---------------|----------------|------------------|
-| **User questionnaire** (14 questions) | The investor | A risk profile: Conservative / Moderate / Growth / Aggressive, plus hard limits (max beta, max stock risk, sectors) |
+| **User questionnaire** (11 questions) | The investor | A risk profile: Conservative / Moderate / Growth / Aggressive, plus constraints (max stock risk, beta comfort, sectors, diversification) |
 | **Stock risk questions** (5 or 7 questions) | The model, automatically | A **stock risk score** 0–100 for that ticker |
 
 Profile matching then asks: *does this stock’s risk, beta, valuation, and sector fit this investor?*
@@ -20,21 +20,23 @@ Profile matching then asks: *does this stock’s risk, beta, valuation, and sect
 File: `screener/config/user_questionnaire.yaml`  
 Logic: `screener/interpret/questionnaire.py`
 
-Fourteen questions in three chapters. Each answer does one or both of:
+Eleven questions in four chapters. Each answer does one or both of:
 
 - **Adds points** to the four profile buckets (this decides *which type of investor* they are)  
-- **Sets a hard constraint** (this decides *what they are allowed to own*)
+- **Sets a constraint** (stock-risk cap, liquidity, cyclical/sector filter, diversification level, valuation preference)
+
+Removed in v4: experience, leverage tolerance, concentration (not used by matcher).
 
 ### 1.1 The four profiles
 
-| ID | Label shown in UI | Default max stock risk | Default max beta | Cyclicals OK by default? |
-|----|-------------------|------------------------|------------------|--------------------------|
-| `conservative` | Capital Preservation | 40 | 1.15 | No |
-| `moderate` | Balanced Growth | 55 | 1.35 | Yes |
-| `growth` | Growth Oriented | 65 | 1.60 | Yes |
-| `aggressive` | High Conviction | 80 | 2.00 | Yes |
+| ID | Label shown in UI | Default max stock risk | Beta comfort (display) | Cyclicals OK by default? |
+|----|-------------------|------------------------|------------------------|--------------------------|
+| `conservative` | Capital Preservation | 40 | 1.0 | No |
+| `moderate` | Balanced Growth | 55 | 1.3 | Yes |
+| `growth` | Growth Oriented | 65 | 1.5 | Yes |
+| `aggressive` | High Conviction | 80 | 2.0 | Yes |
 
-Those defaults apply **only if the investor did not answer** the loss-tolerance or volatility questions. If they did, the answer **overrides** the default (see §1.4).
+`max_stock_risk` is overridden by `loss_tolerance` when answered. **Volatility no longer sets a hard max beta** — it only votes for the profile; beta penalties use profile-specific schedules (§2.5).
 
 ### 1.2 Chapter A — goals (4 questions)
 
@@ -170,24 +172,18 @@ Computed in the same pass, used later for risk alignment and scoring:
 
 `needs_liquidity = yes` penalizes a name if annualized volatility **&gt; 45%**.
 
-### 2.5 How the questionnaire uses beta
+### 2.5 How the questionnaire uses beta (v4 — preference, not a ceiling)
 
-The investor’s `max_beta` is a **ceiling**, not a target.
+Volatility answers **vote for the profile only**. Beta matching uses **piecewise schedules** in `risk_profile_matrix.yaml`:
 
-| Profile / answer | Typical ceiling | Meaning |
-|------------------|-----------------|---------|
-| Conservative default | 1.15 | Only near-market or quieter names |
-| Volatility = Low | 1.10 | Slightly tighter than conservative default |
-| Moderate / vol = Medium | 1.35 | Typical large-cap India range |
-| Growth default | 1.60 | Mid-cap / cyclical OK |
-| Volatility = High | 1.80 | High-beta names allowed |
-| Aggressive default | 2.00 | Almost no beta veto |
+| Profile | Zero penalty up to | Meaningful penalty | Exclude |
+|---------|-------------------|--------------------|---------|
+| Conservative | β 1.0 | β 1.6 → −14 alignment | β ≥ 2.2 |
+| Moderate | β 1.3 | β 2.2 → −16 | — |
+| Growth | β 1.5 | β 2.2 → −14 | — |
+| Aggressive | β 2.0 | β 3.0 → −10 | — |
 
-If **stock β &gt; investor max_beta**:
-
-- Fit score is cut by `min(20, (β − max_β) × 15)`  
-- A reason line is added, e.g. `Beta 1.62 > 1.35 (−10)`  
-- **Conservative only:** the name is **excluded** from picks (not just penalized)
+If **stock β** exceeds the comfort knot, risk alignment is reduced (not a hard ban except conservative at β ≥ 2.2). Missing beta = no penalty.
 
 ---
 
@@ -375,7 +371,7 @@ Penalties in the text come from `risk_profile_matrix.yaml` (they describe *why*,
 ## 5. How we calculate valuation
 
 Valuation is a **label**: `Under` / `Fair` / `Over` / `Unknown`.  
-It is **not** a DCF, not a target price, and (for most sectors) **not** “cheap vs the worst peer.”
+Hybrid v4 engine for non-financials: **FCFF margin-of-safety** (FCF yield vs sector median) + **sector-relative multiples** + absolute bands fallback. Banks: P/B–ROE residual. Insurance: absolute bands.
 
 Two different numbers exist. Do not confuse them:
 

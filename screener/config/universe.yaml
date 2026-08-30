@@ -1,5 +1,5 @@
-# Full NSE universe — organizational buckets with scoring metadata
-# analysis_depth: deep (Banking, IT) | standard (all others)
+# Full NSE universe — 9 organizational buckets with scoring metadata
+# analysis_depth: deep (Banking, IT, Insurance) | standard (all others)
 
 banking:
   model_sector: BANKING
@@ -33,6 +33,23 @@ banking:
     - EQUITASBNK.NS
     - UJJIVANSFB.NS
     - JSFB.NS
+    - LICHSGFIN.NS
+    - CANFINHOME.NS
+    - AAVAS.NS
+    - HOMEFIRST.NS
+    - APTUS.NS
+    - SBICARD.NS
+    - POONAWALLA.NS
+    - CREDITACC.NS
+    - FIVESTAR.NS
+    - M&MFIN.NS
+    - LTF.NS
+    - IIFL.NS
+    - SUNDARMFIN.NS
+    - CHOLAHLDNG.NS
+    - ANGELONE.NS
+    - CDSL.NS
+    - CAMS.NS
   psu:
     - SBIN.NS
     - BANKBARODA.NS
@@ -45,6 +62,10 @@ banking:
     - UCOBANK.NS
     - CENTRALBK.NS
     - IOB.NS
+    - PFC.NS
+    - REC.NS
+    - IRFC.NS
+    - HUDCO.NS
 
 insurance:
   model_sector: INSURANCE
@@ -54,6 +75,11 @@ insurance:
   tickers:
     - HDFCLIFE.NS
     - SBILIFE.NS
+    - ICICIPRULI.NS
+    - ICICIGI.NS
+    - STARHEALTH.NS
+    - MAXFIN.NS
+    - GICRE.NS
 
 it:
   model_sector: IT
@@ -92,6 +118,21 @@ it:
     - DATAPATTNS.NS
     - REDINGTON.NS
     - LATENTVIEW.NS
+    - LTIM.NS
+    - CIGNITITEC.NS
+    - BIRLASOFT.NS
+    - FSL.NS
+    - RATEGAIN.NS
+    - RAMCOSYS.NS
+    - SUBEX.NS
+    - XCHANGING.NS
+    - TECHNOE.NS
+    - ZENTEC.NS
+    - ONMOBILE.NS
+    - SYRMA.NS
+    - AVALON.NS
+    - CYIENTDLM.NS
+    - DCXINDIA.NS
 
 fmcg:
   model_sector: FMCG
@@ -120,6 +161,22 @@ fmcg:
     - HONASA.NS
     - DMART.NS
     - INDHOTEL.NS
+    - GILLETTE.NS
+    - PGHH.NS
+    - KRBL.NS
+    - CCL.NS
+    - GODFRYPHLP.NS
+    - VSTIND.NS
+    - UNITEDSPR.NS
+    - AWL.NS
+    - DEVYANI.NS
+    - WESTLIFE.NS
+    - BATAINDIA.NS
+    - TRENT.NS
+    - TITAN.NS
+    - PAGEIND.NS
+    - HATSUN.NS
+    - CAMPUS.NS
 
 pharma:
   model_sector: PHARMA
@@ -146,6 +203,29 @@ pharma:
     - APOLLOHOSP.NS
     - SYNGENE.NS
     - PIIND.NS
+    - MANKIND.NS
+    - JBPHARMA.NS
+    - GLAND.NS
+    - CAPLIPOINT.NS
+    - AJANTPHARM.NS
+    - EQTAS.NS
+    - STRIDES.NS
+    - ORCHPHARMA.NS
+    - JBCHEPHARM.NS
+    - NEULANDLAB.NS
+    - AARTIDRUGS.NS
+    - WOCKPHARMA.NS
+    - ALIVUS.NS
+    - ERIS.NS
+    - MAXHEALTH.NS
+    - FORTIS.NS
+    - MEDANTA.NS
+    - KIMS.NS
+    - YATHARTH.NS
+    - RAINBOW.NS
+    - METROPOLIS.NS
+    - THYROCARE.NS
+    - POLYMED.NS
 
 auto:
   model_sector: AUTO
@@ -156,19 +236,35 @@ auto:
     - MARUTI.NS
     - EICHERMOT.NS
     - HEROMOTOCO.NS
-    - TRENT.NS
-    - TITAN.NS
     - BAJAJ-AUTO.NS
     - TVSMOTOR.NS
     - MOTHERSON.NS
     - BALKRISIND.NS
-    - IRCTC.NS
-    - PAGEIND.NS
     - ASHOKLEY.NS
     - BHARATFORG.NS
     - ESCORTS.NS
     - MRF.NS
     - TATAMOTORS.NS
+    - M&M.NS
+    - FORCEMOT.NS
+    - SONACOMS.NS
+    - MINDACORP.NS
+    - ENDURANCE.NS
+    - SUPRAJIT.NS
+    - SUNDRMFAST.NS
+    - GABRIELIND.NS
+    - JAMNAAUTO.NS
+    - EXIDEIND.NS
+    - OLECTRA.NS
+    - GREAVESCOT.NS
+    - FIEMIND.NS
+    - UCALFUEL.NS
+    - BHARATSEAT.NS
+    - ARE&M.NS
+    - CRAFTSMAN.NS
+    - SANSERA.NS
+    - UNOMINDA.NS
+    - RKFORGE.NS
 
 energy:
   model_sector: ENERGY
@@ -195,6 +291,20 @@ energy:
     - IREDA.NS
     - POWERGRID.NS
     - TORNTPOWER.NS
+    - CESC.NS
+    - JSWENERGY.NS
+    - ADANIENSOL.NS
+    - MGL.NS
+    - IGL.NS
+    - GUJGASLTD.NS
+    - MRPL.NS
+    - CPCL.NS
+    - CASTROLIND.NS
+    - GSPL.NS
+    - SWANENERGY.NS
+    - SUZLON.NS
+    - INOXWIND.NS
+    - NTPCGREEN.NS
 
 metals:
   model_sector: METALS
@@ -216,6 +326,14 @@ metals:
     - HINDCOPPER.NS
     - WELCORP.NS
     - MOIL.NS
+    - RATNAMANI.NS
+    - JSL.NS
+    - KALYANISTL.NS
+    - MAHSEAMLES.NS
+    - HEG.NS
+    - GRAPHITE.NS
+    - JINDALSAW.NS
+    - SHYAMMETL.NS
 
 capital_goods:
   model_sector: CAPITAL_GOODS
@@ -241,7 +359,6 @@ capital_goods:
     - KEI.NS
     - KIRLOSENG.NS
     - ADANIPORTS.NS
-    - M&M.NS
     - ABFRL.NS
     - MCX.NS
     - BSE.NS
@@ -266,3 +383,88 @@ capital_goods:
     - BHARTIARTL.NS
     - DLF.NS
     - GODREJPROP.NS
+    - IRCTC.NS
+    - ACC.NS
+    - DALBHARAT.NS
+    - JKLAKSHMI.NS
+    - RAMCOCEM.NS
+    - JKCEMENT.NS
+    - BIRLACORPN.NS
+    - HEIDELBERG.NS
+    - PRISMJOHNSON.NS
+    - STARCEMENT.NS
+    - ORIENTCEM.NS
+    - NCC.NS
+    - NBCC.NS
+    - RVNL.NS
+    - IRCON.NS
+    - RITES.NS
+    - KNRCON.NS
+    - HGINFRA.NS
+    - GRINFRA.NS
+    - PNCINFRA.NS
+    - AFCONS.NS
+    - IRB.NS
+    - ASHOKA.NS
+    - ENGINERSIN.NS
+    - ITDCEM.NS
+    - RAILTEL.NS
+    - BDL.NS
+    - MAZDOCK.NS
+    - COCHINSHIP.NS
+    - MIDHANI.NS
+    - PARASDEFENCE.NS
+    - SOLARINDS.NS
+    - MTARTECH.NS
+    - SRF.NS
+    - AARTIIND.NS
+    - DEEPAKNTR.NS
+    - ATUL.NS
+    - NAVINFLUOR.NS
+    - TATACHEM.NS
+    - GNFC.NS
+    - UPL.NS
+    - COROMANDEL.NS
+    - CHAMBLFERT.NS
+    - BALRAMCHIN.NS
+    - FINEORG.NS
+    - VINATIORGA.NS
+    - SUDARSCHEM.NS
+    - FLUOROCHEM.NS
+    - ROSSARI.NS
+    - GRAVITA.NS
+    - OBEROIRLTY.NS
+    - PRESTIGE.NS
+    - SOBHA.NS
+    - BRIGADE.NS
+    - PHOENIXLTD.NS
+    - SUNTECK.NS
+    - DELHIVERY.NS
+    - BLUEDART.NS
+    - VRLLOG.NS
+    - GATI.NS
+    - MAHLOG.NS
+    - INDUSTOWER.NS
+    - HFCL.NS
+    - TEJASNET.NS
+    - TATACOMM.NS
+    - STLTECH.NS
+    - AIAENG.NS
+    - KSB.NS
+    - ELGI.NS
+    - INDOTECH.NS
+    - HITACHIENERGY.NS
+    - WHIRLPOOL.NS
+    - VGUARD.NS
+    - BLUESTARCO.NS
+    - AMBER.NS
+    - BUTTERFLY.NS
+    - KAJARIACER.NS
+    - TRIDENT.NS
+    - KPRMILL.NS
+    - WELSPUNLIV.NS
+    - FACT.NS
+    - RCF.NS
+    - GSFC.NS
+    - SCI.NS
+    - GPPL.NS

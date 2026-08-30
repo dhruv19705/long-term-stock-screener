@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from screener.config_loader import is_cyclical_ticker, load_risk_profile_matrix
 from screener.models import FitResult, RiskProfile, StockInterpretation, StockMetrics
@@ -19,29 +19,68 @@ def _bad_dimensions(interp: StockInterpretation, dims: List[str]) -> bool:
     return any(q.signal == "bad" and q.dimension in dims for q in interp.questions)
 
 
+def _beta_penalty(beta: float, schedule: dict) -> float:
+    knots = schedule.get("knots") or []
+    if not knots:
+        return 0.0
+    sorted_knots = sorted(knots, key=lambda k: float(k["beta"]))
+    if beta <= float(sorted_knots[0]["beta"]):
+        return 0.0
+    for i in range(1, len(sorted_knots)):
+        lo = sorted_knots[i - 1]
+        hi = sorted_knots[i]
+        b_lo, b_hi = float(lo["beta"]), float(hi["beta"])
+        p_lo, p_hi = float(lo["penalty"]), float(hi["penalty"])
+        if beta <= b_hi:
+            if b_hi == b_lo:
+                return p_hi
+            frac = (beta - b_lo) / (b_hi - b_lo)
+            return p_lo + frac * (p_hi - p_lo)
+    return float(sorted_knots[-1]["penalty"])
+
+
+def _beta_exclude(beta: float, schedule: dict) -> bool:
+    threshold = schedule.get("exclude_above")
+    if threshold is None:
+        return False
+    return beta >= float(threshold)
+
+
 def _risk_alignment(
     interp: StockInterpretation,
     profile: RiskProfile,
     metrics: StockMetrics,
+    beta_schedule: dict,
 ) -> float:
     score = 100.0
     if interp.stock_risk_score > profile.max_stock_risk:
         excess = interp.stock_risk_score - profile.max_stock_risk
         score -= min(40.0, excess * 0.8)
-    if metrics.beta is not None and metrics.beta > profile.max_beta:
-        score -= min(20.0, (metrics.beta - profile.max_beta) * 15.0)
+    if metrics.beta is not None and beta_schedule:
+        score -= _beta_penalty(float(metrics.beta), beta_schedule)
     if profile.needs_liquidity and metrics.ann_volatility is not None and metrics.ann_volatility > 0.45:
         score -= 15.0
     return max(0.0, min(100.0, score))
 
 
-def _valuation_fit(valuation_label: str, profile_id: str) -> float:
+def _valuation_fit(valuation_label: str, profile: RiskProfile) -> float:
+    pref = profile.valuation_pref or "fair"
     if valuation_label == "Under":
         return 100.0
     if valuation_label == "Fair":
+        if pref == "quality":
+            return 85.0
+        if pref == "growth":
+            return 80.0
         return 70.0
     if valuation_label == "Over":
-        return 30.0 if profile_id == "conservative" else 40.0
+        if profile.id == "conservative" or pref == "strict":
+            return 30.0
+        if pref == "quality":
+            return 55.0
+        if pref == "growth":
+            return 60.0
+        return 40.0
     return 50.0
 
 
@@ -78,10 +117,11 @@ def _compute_fit_score(
     metrics: StockMetrics,
     score_result_quality: float,
     bonuses: dict,
+    beta_schedule: dict,
 ) -> float:
-    risk = _risk_alignment(interp, profile, metrics)
+    risk = _risk_alignment(interp, profile, metrics, beta_schedule)
     quality_norm = max(0.0, min(100.0, score_result_quality * 100.0))
-    val_fit = _valuation_fit(interp.valuation_label, profile.id)
+    val_fit = _valuation_fit(interp.valuation_label, profile)
     prof_b = _profile_bonus(interp, profile, metrics, bonuses)
     fit = (
         0.27 * risk
@@ -94,7 +134,6 @@ def _compute_fit_score(
 
 
 def _sector_floor_quotas(matcher_cfg: dict) -> Dict[str, int]:
-    """Minimum picks per sector when diversifying; supports legacy deep_sector_min key."""
     quotas = matcher_cfg.get("sector_floor_quotas") or matcher_cfg.get("deep_sector_min") or {}
     return dict(quotas)
 
@@ -111,7 +150,7 @@ def _positive_reasons(
     if grade in ("A", "B"):
         positives.append("Strong fundamental profile")
     if interp.valuation_label == "Under":
-        positives.append("Undervalued vs absolute bands")
+        positives.append("Undervalued on hybrid FCFF / peer check")
     if interp.stock_risk_score <= profile.max_stock_risk * 0.85:
         positives.append(f"Stock risk {interp.stock_risk_score:.0f} within your {profile.max_stock_risk:.0f} limit")
     if interp.composite_score >= 70:
@@ -133,9 +172,12 @@ def _negative_reasons(
     metrics: StockMetrics,
     cfg: dict,
     penalties: dict,
+    beta_schedule: dict,
+    beta_penalty: float,
     exclude: bool,
 ) -> List[str]:
     negatives: List[str] = []
+    comfort = float(beta_schedule.get("comfort", profile.max_beta))
     if interp.stock_risk_score > profile.max_stock_risk:
         pen = float(penalties.get("stock_risk_over_max", 20))
         negatives.append(
@@ -159,9 +201,11 @@ def _negative_reasons(
     if not profile.cyclical_ok and is_cyclical_ticker(metrics.ticker):
         pen = float(penalties.get("cyclical_sector", 20))
         negatives.append(f"Cyclical sector not preferred (−{pen:.0f})")
-    if metrics.beta is not None and metrics.beta > profile.max_beta:
+    if metrics.beta is not None and beta_penalty > 0:
         pen = float(penalties.get("high_beta", 10))
-        negatives.append(f"Beta {metrics.beta:.2f} > {profile.max_beta} (−{pen:.0f})")
+        negatives.append(
+            f"Beta {metrics.beta:.2f} above {comfort:.1f} comfort (−{beta_penalty:.0f} alignment, −{pen:.0f})"
+        )
     if profile.needs_liquidity and metrics.ann_volatility is not None and metrics.ann_volatility > 0.45:
         negatives.append("High volatility for liquidity need (−15)")
     return negatives[:2] if not exclude else negatives
@@ -178,6 +222,11 @@ def match_stock(
     exclude = False
     penalties = cfg.get("penalties") or {}
     bonuses = cfg.get("bonuses") or {}
+    beta_schedule = cfg.get("beta_schedule") or {}
+
+    beta_penalty = 0.0
+    if metrics.beta is not None and beta_schedule:
+        beta_penalty = _beta_penalty(float(metrics.beta), beta_schedule)
 
     if interp.stock_risk_score > profile.max_stock_risk and profile.id == "conservative":
         exclude = True
@@ -198,14 +247,16 @@ def match_stock(
     if not profile.cyclical_ok and is_cyclical_ticker(metrics.ticker) and profile.id == "conservative":
         exclude = True
 
-    if metrics.beta is not None and metrics.beta > profile.max_beta and profile.id == "conservative":
+    if metrics.beta is not None and beta_schedule and _beta_exclude(float(metrics.beta), beta_schedule):
         exclude = True
 
     positives = _positive_reasons(interp, profile, metrics, quality_score, bonuses)
-    negatives = _negative_reasons(profile, interp, metrics, cfg, penalties, exclude)
+    negatives = _negative_reasons(
+        profile, interp, metrics, cfg, penalties, beta_schedule, beta_penalty, exclude
+    )
     reasons = positives + negatives
 
-    score = _compute_fit_score(interp, profile, metrics, quality_score, bonuses)
+    score = _compute_fit_score(interp, profile, metrics, quality_score, bonuses, beta_schedule)
     label = _fit_label(score, matrix.get("fit_labels") or [])
     if exclude:
         label = "Poor"
@@ -238,14 +289,22 @@ def diversify_picks(
     matrix = load_risk_profile_matrix()
     matcher_cfg = matrix.get("matcher") or {}
     top_n_total = int(matcher_cfg.get("top_n_total", 20))
-    top_n_per = int(matcher_cfg.get("top_n_per_sector", 3))
     min_fit = float(matcher_cfg.get("min_fit_score", 45))
     floor_quotas = _sector_floor_quotas(matcher_cfg)
 
-    eligible = [p for p in picks if p.fit_score >= min_fit]
-    if not profile.diversify_sectors:
+    level = profile.diversification_level or "moderate"
+    if level == "concentrated" or not profile.diversify_sectors:
+        eligible = sorted(
+            [p for p in picks if p.fit_score >= min_fit],
+            key=lambda x: (-x.fit_score, -x.composite_score),
+        )
         return eligible[:top_n_total]
 
+    top_n_per = int(matcher_cfg.get("top_n_per_sector", 3))
+    if level == "high":
+        top_n_per = int(matcher_cfg.get("top_n_per_sector_high_div", 2))
+
+    eligible = [p for p in picks if p.fit_score >= min_fit]
     by_sector: Dict[str, List[FitResult]] = defaultdict(list)
     for p in eligible:
         by_sector[p.sector_focus].append(p)
@@ -253,12 +312,13 @@ def diversify_picks(
     diversified: List[FitResult] = []
     used: set[str] = set()
 
-    for sector, min_n in sorted(floor_quotas.items()):
-        sector_picks = sorted(by_sector.get(sector, []), key=lambda x: -x.fit_score)[:min_n]
-        for p in sector_picks:
-            if p.ticker not in used:
-                diversified.append(p)
-                used.add(p.ticker)
+    if level == "moderate":
+        for sector, min_n in sorted(floor_quotas.items()):
+            sector_picks = sorted(by_sector.get(sector, []), key=lambda x: -x.fit_score)[:min_n]
+            for p in sector_picks:
+                if p.ticker not in used:
+                    diversified.append(p)
+                    used.add(p.ticker)
 
     for sector in sorted(by_sector.keys()):
         sector_picks = sorted(by_sector[sector], key=lambda x: -x.fit_score)
@@ -273,7 +333,26 @@ def diversify_picks(
             taken += 1
 
     diversified.sort(key=lambda x: (-x.fit_score, -x.composite_score))
-    return diversified[:top_n_total]
+    result = diversified[:top_n_total]
+
+    if level == "high":
+        min_sectors = int(matcher_cfg.get("min_sectors_high_div", 8))
+        sectors_present = {p.sector_focus for p in result}
+        if len(sectors_present) < min_sectors:
+            for p in eligible:
+                if p.ticker in used:
+                    continue
+                if p.sector_focus in sectors_present:
+                    continue
+                result.append(p)
+                used.add(p.ticker)
+                sectors_present.add(p.sector_focus)
+                if len(sectors_present) >= min_sectors or len(result) >= top_n_total:
+                    break
+            result.sort(key=lambda x: (-x.fit_score, -x.composite_score))
+            result = result[:top_n_total]
+
+    return result
 
 
 def rank_for_profile(

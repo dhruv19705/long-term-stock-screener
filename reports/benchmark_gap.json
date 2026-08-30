@@ -1,0 +1,640 @@
+[
+  {
+    "suite": "nifty50",
+    "matched": 50,
+    "total_benchmark": 50,
+    "in_universe": 50,
+    "direction_pct": 80.0,
+    "severity_pct": 96.0,
+    "false_sell_on_buy": 2,
+    "root_causes": {
+      "peer_rank_low": 8,
+      "other": 2,
+      "valuation_over_cap": 2,
+      "data_missing_roe": 2
+    },
+    "mismatches": [
+      {
+        "ticker": "INFY.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 50.5,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "ITC.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Upper-Mid",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 60.3,
+        "causes": [
+          "other"
+        ]
+      },
+      {
+        "ticker": "LT.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Lower-Mid",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 56.4,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "TITAN.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 27.8,
+        "causes": [
+          "valuation_over_cap",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "BAJFINANCE.NS",
+        "ours": "AVOID",
+        "street": "BUY",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 32.9,
+        "causes": [
+          "data_missing_roe",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "ADANIENT.NS",
+        "ours": "AVOID",
+        "street": "HOLD",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 39.3,
+        "causes": [
+          "other"
+        ]
+      },
+      {
+        "ticker": "TATAMOTORS.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 30.8,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "GRASIM.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 34.2,
+        "causes": [
+          "valuation_over_cap",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "DRREDDY.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 30.0,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "BAJAJFINSV.NS",
+        "ours": "AVOID",
+        "street": "STRONG BUY",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 26.7,
+        "causes": [
+          "data_missing_roe",
+          "peer_rank_low"
+        ]
+      }
+    ]
+  },
+  {
+    "suite": "golden",
+    "matched": 91,
+    "total_benchmark": 92,
+    "in_universe": 92,
+    "direction_pct": 61.5,
+    "severity_pct": 91.2,
+    "false_sell_on_buy": 4,
+    "root_causes": {
+      "peer_rank_low": 16,
+      "valuation_over_cap": 9,
+      "other": 5,
+      "hard_gate_artifact": 1,
+      "over_promoted": 8,
+      "data_missing_roe": 3,
+      "not_in_universe": 1
+    },
+    "mismatches": [
+      {
+        "ticker": "INFY.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 50.5,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "PERSISTENT.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "A",
+        "peer": "Top",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 63.1,
+        "causes": [
+          "valuation_over_cap"
+        ]
+      },
+      {
+        "ticker": "ITC.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Upper-Mid",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 60.3,
+        "causes": [
+          "other"
+        ]
+      },
+      {
+        "ticker": "TITAN.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 27.8,
+        "causes": [
+          "valuation_over_cap",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "DRREDDY.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 30.0,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "LT.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Lower-Mid",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 56.4,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "CANBK.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Lower-Mid",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 53.3,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "BANKBARODA.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Upper-Mid",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 62.4,
+        "causes": [
+          "other"
+        ]
+      },
+      {
+        "ticker": "BANDHANBNK.NS",
+        "ours": "AVOID",
+        "street": "BUY",
+        "Q": "F",
+        "peer": "Top",
+        "val": "Under",
+        "hard_gate": true,
+        "comp": 71.6,
+        "causes": [
+          "hard_gate_artifact"
+        ]
+      },
+      {
+        "ticker": "PNB.NS",
+        "ours": "AVOID",
+        "street": "HOLD",
+        "Q": "F",
+        "peer": "Lower-Mid",
+        "val": "Under",
+        "hard_gate": true,
+        "comp": 61.3,
+        "causes": [
+          "other"
+        ]
+      },
+      {
+        "ticker": "IDFCFIRSTB.NS",
+        "ours": "BUY",
+        "street": "HOLD",
+        "Q": "B",
+        "peer": "Top",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 84.8,
+        "causes": [
+          "over_promoted"
+        ]
+      },
+      {
+        "ticker": "COFORGE.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "A",
+        "peer": "Top",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 80.6,
+        "causes": [
+          "valuation_over_cap"
+        ]
+      },
+      {
+        "ticker": "MPHASIS.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 44.4,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "OFSS.NS",
+        "ours": "BUY",
+        "street": "HOLD",
+        "Q": "B",
+        "peer": "Upper-Mid",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 58.4,
+        "causes": [
+          "over_promoted"
+        ]
+      },
+      {
+        "ticker": "DABUR.NS",
+        "ours": "BUY",
+        "street": "HOLD",
+        "Q": "B",
+        "peer": "Upper-Mid",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 63.6,
+        "causes": [
+          "over_promoted"
+        ]
+      },
+      {
+        "ticker": "BRITANNIA.NS",
+        "ours": "BUY",
+        "street": "HOLD",
+        "Q": "B",
+        "peer": "Lower-Mid",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 57.5,
+        "causes": [
+          "over_promoted"
+        ]
+      },
+      {
+        "ticker": "COLPAL.NS",
+        "ours": "BUY",
+        "street": "HOLD",
+        "Q": "B",
+        "peer": "Lower-Mid",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 55.5,
+        "causes": [
+          "over_promoted"
+        ]
+      },
+      {
+        "ticker": "TORNTPHARM.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "B",
+        "peer": "Lower-Mid",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 45.1,
+        "causes": [
+          "valuation_over_cap",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "BIOCON.NS",
+        "ours": "SELL",
+        "street": "HOLD",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 21.9,
+        "causes": [
+          "other"
+        ]
+      },
+      {
+        "ticker": "TVSMOTOR.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "A",
+        "peer": "Upper-Mid",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 49.5,
+        "causes": [
+          "valuation_over_cap"
+        ]
+      },
+      {
+        "ticker": "PAGEIND.NS",
+        "ours": "STRONG BUY",
+        "street": "HOLD",
+        "Q": "A",
+        "peer": "Top",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 69.3,
+        "causes": [
+          "over_promoted"
+        ]
+      },
+      {
+        "ticker": "GAIL.NS",
+        "ours": "BUY",
+        "street": "HOLD",
+        "Q": "B",
+        "peer": "Top",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 76.7,
+        "causes": [
+          "over_promoted"
+        ]
+      },
+      {
+        "ticker": "VEDL.NS",
+        "ours": "BUY",
+        "street": "HOLD",
+        "Q": "B",
+        "peer": "Upper-Mid",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 63.5,
+        "causes": [
+          "over_promoted"
+        ]
+      },
+      {
+        "ticker": "JINDALSTEL.NS",
+        "ours": "HOLD",
+        "street": "STRONG BUY",
+        "Q": "B",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 33.1,
+        "causes": [
+          "valuation_over_cap",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "ABB.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "A",
+        "peer": "Upper-Mid",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 60.0,
+        "causes": [
+          "valuation_over_cap"
+        ]
+      },
+      {
+        "ticker": "BAJFINANCE.NS",
+        "ours": "AVOID",
+        "street": "BUY",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 32.9,
+        "causes": [
+          "data_missing_roe",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "BAJAJFINSV.NS",
+        "ours": "AVOID",
+        "street": "STRONG BUY",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 26.7,
+        "causes": [
+          "data_missing_roe",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "AMBUJACEM.NS",
+        "ours": "HOLD",
+        "street": "STRONG BUY",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 46.4,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "TATAMOTORS.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 30.8,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "ADANIENT.NS",
+        "ours": "AVOID",
+        "street": "HOLD",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 39.3,
+        "causes": [
+          "other"
+        ]
+      },
+      {
+        "ticker": "GRASIM.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 34.2,
+        "causes": [
+          "valuation_over_cap",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "DMART.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "B",
+        "peer": "Upper-Mid",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 43.3,
+        "causes": [
+          "valuation_over_cap"
+        ]
+      },
+      {
+        "ticker": "CHOLAFIN.NS",
+        "ours": "SELL",
+        "street": "BUY",
+        "Q": "D",
+        "peer": "Bottom",
+        "val": "Over",
+        "hard_gate": false,
+        "comp": 31.5,
+        "causes": [
+          "data_missing_roe",
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "DLF.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Lower-Mid",
+        "val": "Under",
+        "hard_gate": false,
+        "comp": 56.3,
+        "causes": [
+          "peer_rank_low"
+        ]
+      },
+      {
+        "ticker": "GODREJPROP.NS",
+        "error": "not_in_universe",
+        "street": "HOLD"
+      },
+      {
+        "ticker": "PIIND.NS",
+        "ours": "HOLD",
+        "street": "BUY",
+        "Q": "C",
+        "peer": "Bottom",
+        "val": "Fair",
+        "hard_gate": false,
+        "comp": 42.9,
+        "causes": [
+          "peer_rank_low"
+        ]
+      }
+    ]
+  }
+]

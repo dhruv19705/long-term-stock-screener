@@ -14,7 +14,7 @@ _DIMENSION_COPY: dict[tuple[str, str], str] = {
     ("solvency_risk", "good"): "Capital and solvency buffers appear adequate.",
     ("solvency_risk", "warn"): "Solvency metrics are acceptable but not strong.",
     ("solvency_risk", "bad"): "Solvency or capital buffers look thin.",
-    ("valuation_risk", "good"): "Valuation appears reasonable on absolute and peer measures.",
+    ("valuation_risk", "good"): "Valuation appears reasonable vs FCFF-implied value and sector peers.",
     ("valuation_risk", "warn"): "Valuation is fair — limited margin of safety.",
     ("valuation_risk", "bad"): "Valuation looks stretched versus fundamentals.",
     ("earnings_risk", "good"): "Earnings quality and profitability support the thesis.",
@@ -94,9 +94,13 @@ def headline(m: StockMetrics, score: ScoreResult, risk: float) -> str:
         "Fair": "fairly valued",
         "Over": "priced for perfection",
     }.get(score.valuation_label, val)
+    gap = getattr(score, "intrinsic_gap_pct", None)
+    gap_note = ""
+    if gap is not None and gap > 0.5:
+        gap_note = " · positive FCFF margin of safety"
     return (
         f"{focus} · {score.recommendation} · "
-        f"{hook} · risk {risk:.0f}/100."
+        f"{hook}{gap_note} · risk {risk:.0f}/100."
     )
 
 
@@ -134,18 +138,28 @@ def build_profile_summary(profile) -> List[str]:
     """Human-readable constraint bullets for questionnaire review."""
     lines = [f"Risk profile: {profile.label}"]
     lines.append(f"Max single-stock risk score: {profile.max_stock_risk:.0f}")
-    lines.append(f"Max portfolio beta: {profile.max_beta:.2f}")
+    lines.append(f"Beta comfort: prefer ≤ {profile.max_beta:.1f} (higher beta ranked down, not banned)")
     if not profile.cyclical_ok:
         lines.append("Cyclical sectors: excluded from recommendations")
     else:
         lines.append("Cyclical sectors: allowed")
     universe = _SECTOR_FILTER_LABELS.get(profile.sector_filter, profile.sector_filter)
     lines.append(f"Stock universe: {universe}")
-    if profile.diversify_sectors:
-        lines.append("Recommendations spread across sectors")
-    else:
-        lines.append("Best ideas only — sector diversification off")
+    div_level = getattr(profile, "diversification_level", "moderate")
+    div_labels = {
+        "high": "Highly diversified recommendations",
+        "moderate": "Moderately diversified recommendations",
+        "concentrated": "Concentrated best ideas",
+    }
+    lines.append(div_labels.get(div_level, "Moderately diversified recommendations"))
+    val_pref = getattr(profile, "valuation_pref", "fair")
+    val_labels = {
+        "strict": "Valuation: only reasonably valued names preferred",
+        "fair": "Valuation: fair price preferred",
+        "quality": "Valuation: willing to pay premium for quality",
+        "growth": "Valuation: willing to pay premium for growth",
+    }
+    lines.append(val_labels.get(val_pref, "Valuation: fair price preferred"))
     if profile.needs_liquidity:
         lines.append("Prefers lower-volatility names (may need to sell soon)")
-    lines.append(f"Max concentration per stock: {profile.max_concentration_pct:.0f}%")
     return lines

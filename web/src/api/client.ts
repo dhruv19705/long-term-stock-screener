@@ -12,8 +12,9 @@ export type RiskProfile = {
   max_beta?: number;
   cyclical_ok?: boolean;
   diversify_sectors?: boolean;
+  diversification_level?: string;
   needs_liquidity?: boolean;
-  max_concentration_pct?: number;
+  valuation_pref?: string;
   profile_summary?: string[];
   profile_scores?: Record<string, number>;
 };
@@ -158,8 +159,9 @@ export async function fetchRecommendations(profile: RiskProfile) {
     max_beta: profile.max_beta,
     cyclical_ok: profile.cyclical_ok,
     diversify_sectors: profile.diversify_sectors,
+    diversification_level: profile.diversification_level,
     needs_liquidity: profile.needs_liquidity,
-    max_concentration_pct: profile.max_concentration_pct,
+    valuation_pref: profile.valuation_pref,
     scores: profile.scores,
   });
   return data as {

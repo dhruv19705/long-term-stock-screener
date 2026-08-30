@@ -92,7 +92,7 @@ export default function Questionnaire() {
   const questions = data?.questions ?? [];
   const chapters = data?.chapters ?? [];
   const q = questions[step];
-  const currentChapter = q?.chapter ?? "goals";
+  const currentChapter = q?.chapter ?? "objective";
   const chapterQuestions = useMemo(
     () => questions.filter((item) => item.chapter === currentChapter),
     [questions, currentChapter]

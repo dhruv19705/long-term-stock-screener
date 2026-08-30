@@ -82,7 +82,7 @@ Sectors are **assigned by us**, not by Yahoo Finance. Yahoo’s US-style sector 
 | Metals | Basic Materials | Standard | **Yes** | All metals names |
 | Capital goods | Industrials | Standard | **Yes** | All capital-goods names |
 
-Approximate counts today: banking ~37, insurance 2, IT ~31, FMCG ~21, pharma ~19, auto ~16, energy ~19, metals ~14, capital goods ~43. Exact membership is always the YAML list.
+Approximate counts today: banking ~59, insurance 7, IT ~47, FMCG ~39, pharma ~43, auto ~33, energy ~33, metals ~22, capital goods ~170. Exact membership is always the YAML list.
 
 ### 3.2 Why this list, not “all NSE stocks”
 

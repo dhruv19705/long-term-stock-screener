@@ -1,0 +1,254 @@
+{
+  "suite": "all",
+  "matched": 95,
+  "direction_pct": 66.3,
+  "false_sell_on_buy": 3,
+  "ours_distribution": {
+    "bullish": 51,
+    "neutral": 37,
+    "bearish": 7
+  },
+  "street_distribution": {
+    "bullish": 63,
+    "neutral": 32
+  },
+  "sector_heatmap": {
+    "banking": 66.7,
+    "infra": 100.0,
+    "it": 58.3,
+    "fmcg": 55.6,
+    "auto": 87.5,
+    "consumer": 85.7,
+    "pharma": 70.0,
+    "energy": 85.7,
+    "metals": 60.0,
+    "industrials": 50.0,
+    "materials": 33.3,
+    "telecom": 100.0,
+    "financials": 62.5,
+    "healthcare": 100.0,
+    "utilities": 100.0,
+    "real_estate": 0.0
+  },
+  "by_source": {
+    "stockanalysis.com": 100.0,
+    "ET Jul 2025": 100.0,
+    "consensus": 57.8,
+    "CNBC-TV18": 100.0,
+    "BusinessToday": 100.0,
+    "PL Capital": 85.7,
+    "stocktargetadvisor": 20.0
+  },
+  "mismatches": [
+    {
+      "ticker": "NESTLEIND.NS",
+      "ours": "BUY",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "fmcg"
+    },
+    {
+      "ticker": "DRREDDY.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "pharma"
+    },
+    {
+      "ticker": "CANBK.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "banking"
+    },
+    {
+      "ticker": "BANDHANBNK.NS",
+      "ours": "AVOID",
+      "street": "BUY",
+      "source": "stocktargetadvisor",
+      "sector": "banking"
+    },
+    {
+      "ticker": "PNB.NS",
+      "ours": "AVOID",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "banking"
+    },
+    {
+      "ticker": "IDFCFIRSTB.NS",
+      "ours": "BUY",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "banking"
+    },
+    {
+      "ticker": "MPHASIS.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "it"
+    },
+    {
+      "ticker": "OFSS.NS",
+      "ours": "BUY",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "it"
+    },
+    {
+      "ticker": "KPITTECH.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "it"
+    },
+    {
+      "ticker": "LTTS.NS",
+      "ours": "AVOID",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "it"
+    },
+    {
+      "ticker": "NAUKRI.NS",
+      "ours": "BUY",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "it"
+    },
+    {
+      "ticker": "DABUR.NS",
+      "ours": "STRONG BUY",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "fmcg"
+    },
+    {
+      "ticker": "BRITANNIA.NS",
+      "ours": "BUY",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "fmcg"
+    },
+    {
+      "ticker": "GODREJCP.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "fmcg"
+    },
+    {
+      "ticker": "TORNTPHARM.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "pharma"
+    },
+    {
+      "ticker": "GAIL.NS",
+      "ours": "BUY",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "energy"
+    },
+    {
+      "ticker": "VEDL.NS",
+      "ours": "STRONG BUY",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "metals"
+    },
+    {
+      "ticker": "JINDALSTEL.NS",
+      "ours": "HOLD",
+      "street": "STRONG BUY",
+      "source": "stocktargetadvisor",
+      "sector": "metals"
+    },
+    {
+      "ticker": "ABB.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "PL Capital",
+      "sector": "industrials"
+    },
+    {
+      "ticker": "BAJFINANCE.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "financials"
+    },
+    {
+      "ticker": "BAJAJFINSV.NS",
+      "ours": "HOLD",
+      "street": "STRONG BUY",
+      "source": "stocktargetadvisor",
+      "sector": "financials"
+    },
+    {
+      "ticker": "AMBUJACEM.NS",
+      "ours": "HOLD",
+      "street": "STRONG BUY",
+      "source": "stocktargetadvisor",
+      "sector": "materials"
+    },
+    {
+      "ticker": "TATAMOTORS.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "auto"
+    },
+    {
+      "ticker": "GRASIM.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "materials"
+    },
+    {
+      "ticker": "DMART.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "consumer"
+    },
+    {
+      "ticker": "CHOLAFIN.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "financials"
+    },
+    {
+      "ticker": "DLF.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "real_estate"
+    },
+    {
+      "ticker": "GODREJPROP.NS",
+      "ours": "SELL",
+      "street": "HOLD",
+      "source": "consensus",
+      "sector": "real_estate"
+    },
+    {
+      "ticker": "PIIND.NS",
+      "ours": "AVOID",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "pharma"
+    },
+    {
+      "ticker": "SIEMENS.NS",
+      "ours": "HOLD",
+      "street": "BUY",
+      "source": "consensus",
+      "sector": "industrials"
+    }
+  ]
+}

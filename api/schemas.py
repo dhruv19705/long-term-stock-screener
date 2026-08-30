@@ -10,14 +10,22 @@ class QuestionnaireOption(BaseModel):
     label: str
 
 
+class QuestionnaireChapter(BaseModel):
+    id: str
+    label: str
+    description: str
+
+
 class QuestionnaireQuestion(BaseModel):
     id: str
     text: str
+    chapter: str
     options: List[QuestionnaireOption]
 
 
 class QuestionnaireResponse(BaseModel):
     profiles: List[Dict[str, str]]
+    chapters: List[QuestionnaireChapter]
     questions: List[QuestionnaireQuestion]
 
 
@@ -31,11 +39,12 @@ class RiskProfileOut(BaseModel):
     sector_filter: str
     scores: Dict[str, int] = {}
     max_stock_risk: float = 55.0
-    max_beta: float = 1.35
+    max_beta: float = 1.3
     cyclical_ok: bool = True
     diversify_sectors: bool = True
+    diversification_level: str = "moderate"
     needs_liquidity: bool = False
-    max_concentration_pct: float = 20.0
+    valuation_pref: str = "fair"
     profile_summary: List[str] = Field(default_factory=list)
     profile_scores: Dict[str, int] = Field(default_factory=dict)
 
@@ -57,8 +66,9 @@ class RecommendRequest(BaseModel):
     max_beta: Optional[float] = None
     cyclical_ok: Optional[bool] = None
     diversify_sectors: Optional[bool] = None
+    diversification_level: Optional[str] = None
     needs_liquidity: Optional[bool] = None
-    max_concentration_pct: Optional[float] = None
+    valuation_pref: Optional[str] = None
     scores: Optional[Dict[str, int]] = None
 
 

@@ -123,6 +123,9 @@ class ScoreResult:
     risk_flags: List[str] = field(default_factory=list)
     margin_distortion: bool = False
     data_quality_flags: List[str] = field(default_factory=list)
+    valuation_method: str = "absolute"
+    intrinsic_gap_pct: Optional[float] = None
+    valuation_peer_pctile: Optional[float] = None
 
     @property
     def action_label(self) -> str:
@@ -181,11 +184,12 @@ class RiskProfile:
     sector_filter: str = "all"
     scores: Dict[str, int] = field(default_factory=dict)
     max_stock_risk: float = 55.0
-    max_beta: float = 1.5
+    max_beta: float = 1.3
     cyclical_ok: bool = True
     diversify_sectors: bool = True
+    diversification_level: str = "moderate"
     needs_liquidity: bool = False
-    max_concentration_pct: float = 25.0
+    valuation_pref: str = "fair"
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)

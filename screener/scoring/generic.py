@@ -145,7 +145,7 @@ def score_generic_group(
         composite = apply_cyclical_composite_penalty(composite, m, model_sector, cyclical_sectors)
         composites[m.ticker] = composite
 
-        vl, _ = evaluate_valuation(m, peers, model_sector, cyclical_sectors)
+        vres = evaluate_valuation(m, peers, model_sector, cyclical_sectors)
         fund = _avg_dict({"q": parts["quality"], "g": parts["growth"]}) or 0.0
         hard_fail, rf, margin_distortion = evaluate_generic_gates(m, sector_focus)
         m.margin_distortion = margin_distortion
@@ -161,7 +161,10 @@ def score_generic_group(
             fundamental_pass=not hard_fail and (fund or 0) >= 0.35,
             fundamental_strength=float(fund or 0),
             composite_score=float(composite),
-            valuation_label=vl,
+            valuation_label=vres.label,
+            valuation_method=vres.valuation_method,
+            intrinsic_gap_pct=vres.intrinsic_gap_pct,
+            valuation_peer_pctile=vres.valuation_peer_pctile,
             red_flag=rf,
             hard_gate_fail=hard_fail,
             score_breakdown={k: float(v) for k, v in used.items()},

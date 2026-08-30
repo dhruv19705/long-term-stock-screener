@@ -18,6 +18,9 @@ from screener.models import QuestionAnswer, ScoreResult, StockInterpretation, St
 def _context(m: StockMetrics, score: ScoreResult) -> Dict[str, Any]:
     d = m.to_dict()
     d["valuation_label"] = score.valuation_label
+    d["valuation_method"] = getattr(score, "valuation_method", "absolute")
+    d["intrinsic_gap_pct"] = getattr(score, "intrinsic_gap_pct", None)
+    d["valuation_peer_pctile"] = getattr(score, "valuation_peer_pctile", None)
     d["red_flag"] = score.red_flag
     d["composite_score"] = score.composite_score
     d["data_completeness"] = m.data_completeness

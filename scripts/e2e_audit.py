@@ -47,19 +47,16 @@ def main() -> int:
     profile = profile_from_answers(
         {
             "horizon": "long",
-            "goal": "grow",
+            "objective": "balanced",
+            "income_need": "moderate",
             "drawdown": "hold",
-            "income_need": "nice",
-            "experience": "intermediate",
             "loss_tolerance": "med",
-            "volatility": "med",
-            "valuation": "fair",
-            "leverage": "mod",
-            "cyclical_pref": "balanced",
+            "volatility": "moderate",
             "liquidity": "no",
-            "concentration": "med",
-            "diversification": "yes",
-            "sector_exposure": "all",
+            "valuation_pref": "fair",
+            "cyclical_pref": "some",
+            "diversification": "moderate",
+            "sector_restrictions": "none",
         }
     )
     print(f"\n=== RECOMMEND ({profile.label}, sector={profile.sector_filter}) ===")
