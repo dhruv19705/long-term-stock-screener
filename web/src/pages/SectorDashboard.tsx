@@ -32,7 +32,7 @@ export default function SectorDashboard() {
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Sector view</p>
-          <h1 className="mt-1 font-display text-4xl font-bold capitalize tracking-tight text-ink">{title}</h1>
+          <h1 className="mt-1 font-display text-4xl font-bold tracking-tight text-ink">{title}</h1>
           <p className="mt-2 text-slate-600">
             {summary.data
               ? `${summary.data.count} names · avg score ${Number(summary.data.avg_composite || 0).toFixed(1)}`

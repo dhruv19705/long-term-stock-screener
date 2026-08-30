@@ -33,6 +33,38 @@ export function formatTicker(stock: string): string {
   return stock.replace(/\.NS$/i, "");
 }
 
+const SECTOR_DISPLAY_NAMES: Record<string, string> = {
+  it: "IT",
+  fmcg: "FMCG",
+  psu: "PSU",
+  banking: "Banking",
+  pharma: "Pharma",
+  auto: "Auto",
+  energy: "Energy",
+  metals: "Metals",
+  capital_goods: "Capital Goods",
+  insurance: "Insurance",
+  defensive: "Defensive",
+  cyclical: "Cyclical",
+  no_financials: "Ex-Financials",
+  both: "Banking & IT",
+  all: "All Sectors",
+};
+
 export function sectorLabel(id: string): string {
-  return id.replace(/_/g, " ");
+  if (!id) return "";
+  const key = id.toLowerCase().trim();
+  if (SECTOR_DISPLAY_NAMES[key]) {
+    return SECTOR_DISPLAY_NAMES[key];
+  }
+  return id
+    .split("_")
+    .map((w) => {
+      const lower = w.toLowerCase();
+      if (lower === "it") return "IT";
+      if (lower === "fmcg") return "FMCG";
+      if (lower === "psu") return "PSU";
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    })
+    .join(" ");
 }
