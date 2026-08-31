@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBenchmarkSummary } from "../api/client";
 import { MethodCard } from "../components/MethodCard";
@@ -56,6 +57,35 @@ export default function NiftyBenchmarkPage() {
           alignment audit for all 50 index constituents.
         </p>
       </div>
+
+      <MethodCard title="How we rank stocks" eyebrow="Our recommendations">
+        <p>
+          The &ldquo;Ours&rdquo; column in the mismatch table below comes from the same ranking engine used on the
+          Rankings and Sectors pages — not from street consensus.
+        </p>
+        <ul className="mt-3 list-disc space-y-2 pl-5">
+          <li>
+            Each stock is scored <strong className="text-ink">only within its peer cohort</strong> (e.g. private banks
+            vs PSU, large-cap IT vs mid-cap).
+          </li>
+          <li>
+            Three axes set the label: <strong className="text-ink">Quality grade</strong> (A–F),{" "}
+            <strong className="text-ink">Peer band</strong> (Top / Upper-Mid / Lower-Mid / Bottom), and{" "}
+            <strong className="text-ink">Valuation</strong> (Under / Fair / Over).
+          </li>
+          <li>
+            The <strong className="text-ink">action matrix</strong> combines these into STRONG BUY / BUY / HOLD / AVOID /
+            SELL — a high composite alone does not produce STRONG BUY if valuation is Over.
+          </li>
+          <li>
+            A <strong className="text-ink">stock risk score</strong> (0–100, higher = riskier) is built from 5–7
+            automated sector questions on balance sheet, earnings, momentum, and data quality.
+          </li>
+        </ul>
+        <Link to="/sector-ranking" className="mt-2 inline-block text-sm font-medium text-accent hover:underline">
+          Banking &amp; IT pillar weights and rules →
+        </Link>
+      </MethodCard>
 
       <MethodCard title="Index-relative risk" eyebrow="Role A · ^NSEI">
         <p>Every stock in the universe is compared against the Nifty 50 index (^NSEI) for risk metrics:</p>
