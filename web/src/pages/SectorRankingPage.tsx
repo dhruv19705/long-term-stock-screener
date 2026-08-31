@@ -172,6 +172,31 @@ export default function SectorRankingPage() {
         </div>
       </MethodCard>
 
+      <MethodCard title="How we measure risk" eyebrow="Stock risk score">
+        <p>
+          Every scored stock also gets a <strong className="text-ink">stock risk score (0–100)</strong>. Higher means
+          riskier. It is separate from the composite ranking score but feeds confidence and profile matching.
+        </p>
+        <ul className="mt-3 list-disc space-y-2 pl-5">
+          <li>
+            <strong className="text-ink">Market metrics</strong> from price history: beta vs Nifty, 1-year max
+            drawdown, volatility, and RS vs Nifty (used in momentum, action rules, and the risk penalty pillar).
+          </li>
+          <li>
+            <strong className="text-ink">Automated checklist</strong> — Banking and IT get 7 questions each (GNPA, margins,
+            growth, valuation, etc.); other sectors get 5. Each answer is good / warn / bad / unknown.
+          </li>
+          <li>
+            <strong className="text-ink">Formula:</strong> good = 0 pts, warn/unknown = 1 pt, bad = 2 pts → weighted
+            average scaled to 0–100.
+          </li>
+          <li>
+            On the <strong className="text-ink">For you</strong> page, your questionnaire sets a max stock risk cap; names
+            above it are penalized or excluded depending on profile.
+          </li>
+        </ul>
+      </MethodCard>
+
       <MethodCard title="Action matrix" eyebrow="Final label">
         <p>
           STRONG BUY requires <strong className="text-ink">Grade A</strong> and{" "}
