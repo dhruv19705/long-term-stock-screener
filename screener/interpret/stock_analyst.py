@@ -134,6 +134,8 @@ def analyze_stock(m: StockMetrics, score: ScoreResult) -> StockInterpretation:
         model_sector=m.model_sector,
         analysis_depth=m.analysis_depth,
         recommendation=score.recommendation,
+        raw_recommendation=score.raw_recommendation,
+        calibration_applied=score.calibration_applied,
         composite_score=score.composite_score,
         composite_percentile=score.composite_percentile,
         quality_grade=score.quality_grade,

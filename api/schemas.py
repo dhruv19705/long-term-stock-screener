@@ -148,6 +148,8 @@ class InterpretResponse(BaseModel):
     model_sector: str = "UNKNOWN"
     analysis_depth: str = "standard"
     recommendation: str
+    raw_recommendation: Optional[str] = None
+    calibration_applied: bool = False
     composite_score: float
     composite_percentile: Optional[float] = None
     quality_grade: str = "C"

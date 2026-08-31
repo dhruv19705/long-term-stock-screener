@@ -96,6 +96,8 @@ export type Interpretation = {
   sector_focus: string;
   model_sector?: string;
   recommendation: string;
+  raw_recommendation?: string | null;
+  calibration_applied?: boolean;
   composite_score: number;
   composite_percentile?: number | null;
   quality_grade?: string;
@@ -186,6 +188,39 @@ export async function fetchScreen(sector: string = "all") {
     count: number;
     total_universe?: number;
   };
+}
+
+export type BenchmarkSummary = {
+  distribution: {
+    counts: Record<string, number>;
+    total: number;
+    bullish_pct: number;
+    bearish_pct: number;
+    targets: { bullish_min: number; bullish_max: number; bearish_min: number; bearish_max: number };
+  };
+  nifty50: {
+    suite: string;
+    direction_pct: number;
+    severity_pct: number;
+    false_sell_on_buy: number;
+    matched: number;
+    top_mismatches: { ticker: string; ours?: string; street?: string; causes?: string[]; error?: string }[];
+  };
+  golden: {
+    suite: string;
+    direction_pct: number;
+    severity_pct: number;
+    false_sell_on_buy: number;
+    matched: number;
+    top_mismatches: { ticker: string; ours?: string; street?: string; causes?: string[]; error?: string }[];
+  };
+  calibrated_count: number;
+  generated_at: number;
+};
+
+export async function fetchBenchmarkSummary(refresh = false) {
+  const { data } = await api.get("/benchmark/summary", { params: refresh ? { refresh: true } : {} });
+  return data as BenchmarkSummary;
 }
 
 export async function fetchSectorSummary(sector: string) {

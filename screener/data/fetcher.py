@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import contextlib
+import io
 import logging
 import math
 import time
@@ -19,6 +21,7 @@ from screener.config_loader import (
     bank_cohort,
     load_settings,
     model_sector_for_ticker,
+    nifty50_tickers,
     peer_set,
     sector_focus_for_ticker,
     ticker_meta,
@@ -45,6 +48,9 @@ from screener.features.fundamentals import (
 from screener.models import StockMetrics
 
 logger = logging.getLogger("screener.fetcher")
+
+# yfinance prints "possibly delisted" to stderr for bad/stale symbols
+logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 
 _DISPLAY = {
     "banking": "Financial Services",
@@ -76,6 +82,14 @@ def _retry(fn, tries: int = 3, delay: float = 0.6):
             time.sleep(delay * (2**i))
     if last:
         raise last
+
+
+@contextlib.contextmanager
+def _quiet_yfinance():
+    """Suppress yfinance stderr spam for missing/stale symbols."""
+    buf = io.StringIO()
+    with contextlib.redirect_stderr(buf):
+        yield
 
 
 def _returns_from_close(close: pd.Series) -> Dict[str, Optional[float]]:
@@ -232,7 +246,8 @@ def _fetch_inner(ticker: str, yf_symbol: Optional[str] = None) -> StockMetrics:
     t = yf.Ticker(sym)
     info: dict = {}
     try:
-        info = _retry(lambda: t.get_info() or {})
+        with _quiet_yfinance():
+            info = _retry(lambda: t.get_info() or {})
     except Exception:
         info = {}
 
@@ -302,11 +317,11 @@ def _fetch_inner(ticker: str, yf_symbol: Optional[str] = None) -> StockMetrics:
     if roe_pct is None and net_latest is not None and equity not in (None, 0):
         roe_pct = to_percent_if_fraction(net_latest / equity, 100)
 
-    if roe_pct is None:
-        from screener.data.nse_fallback import fetch_nse_fundamentals
+    from screener.data.nse_fallback import fetch_nse_fundamentals
 
+    if roe_pct is None or (ticker in nifty50_tickers() and roce_pct is None):
         nse_fund = fetch_nse_fundamentals(ticker)
-        if nse_fund.get("roe_pct") is not None:
+        if roe_pct is None and nse_fund.get("roe_pct") is not None:
             roe_pct = nse_fund["roe_pct"]
         if nse_fund.get("roce_pct") is not None and roce_pct is None:
             roce_pct = nse_fund["roce_pct"]
@@ -350,7 +365,8 @@ def _fetch_inner(ticker: str, yf_symbol: Optional[str] = None) -> StockMetrics:
     close = pd.Series(dtype=float)
     hist = None
     try:
-        hist = _retry(lambda: t.history(period="5y", interval="1d"))
+        with _quiet_yfinance():
+            hist = _retry(lambda: t.history(period="5y", interval="1d"))
         if hist is not None and not hist.empty and "Close" in hist.columns:
             close = hist["Close"].astype(float).dropna()
             close.index = pd.to_datetime(close.index).tz_localize(None)

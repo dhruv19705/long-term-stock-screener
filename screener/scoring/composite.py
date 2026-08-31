@@ -118,7 +118,7 @@ def _score_banking(peers: List[StockMetrics], weights: Dict[str, float]) -> Dict
         else:
             val_score = None
 
-        vl, _ = valuation_label_from_residual(resid, m.pb, med_pb)
+        vl, _ = valuation_label_from_residual(resid, m.pb, med_pb, m.roe_pct)
         if vl == "Unknown":
             vl, _ = absolute_valuation_label_banking(m)
         mom = None if mom_pctile[m.ticker] is None else mom_pctile[m.ticker] / 100.0

@@ -6,6 +6,7 @@ from typing import Any, Dict, List, Optional
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
+from api.benchmark import benchmark_summary, invalidate_benchmark_cache
 from api.schemas import (
     AnswersRequest,
     QuestionnaireResponse,
@@ -130,7 +131,16 @@ def screen(
 
 @app.post("/api/screen/refresh")
 def refresh_screen(sector: str = Query("all")) -> Dict[str, Any]:
+    invalidate_benchmark_cache()
     return screen(sector=sector, refresh=True)
+
+
+@app.get("/api/benchmark/summary")
+def benchmark_summary_endpoint(refresh: bool = Query(False)) -> Dict[str, Any]:
+    _ensure_screen(sector_filter="all")
+    if refresh:
+        invalidate_benchmark_cache()
+    return benchmark_summary(force=refresh)
 
 
 def _canonical_ticker(ticker: str) -> str:

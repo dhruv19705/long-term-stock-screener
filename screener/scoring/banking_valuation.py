@@ -44,14 +44,17 @@ def valuation_label_from_residual(
     residual: Optional[float],
     pb: Optional[float],
     peer_median_pb: Optional[float],
+    roe_pct: Optional[float] = None,
 ) -> Tuple[str, Optional[float]]:
     """
     Under if residual < -0.15 * scale or pb < 0.85 * median.
+    High-ROE private banks get a wider Fair band before Over.
     """
+    over_residual = 0.65 if roe_pct is not None and roe_pct > 15.0 else 0.55
     if residual is not None and np.isfinite(residual):
         if residual < -0.25:
             return "Under", residual
-        if residual > 0.55:
+        if residual > over_residual:
             return "Over", residual
         return "Fair", residual
     if pb is not None and peer_median_pb not in (None, 0):

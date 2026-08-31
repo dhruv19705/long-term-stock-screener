@@ -31,10 +31,10 @@ action_book:
   it:
     op_margin_soft_min: 12.0
 
-# Benchmark/street calibration — off in production UI (scripts/tests only)
+# Benchmark/street calibration for Nifty50 alignment in production UI
 benchmark_calibration:
-  street_overlay: false
-  index_anchor: false
+  street_overlay: true
+  index_anchor: true
 
 sector_calibration:
   enabled: true

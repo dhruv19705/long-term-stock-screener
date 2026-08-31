@@ -118,8 +118,8 @@ it:
     - DATAPATTNS.NS
     - REDINGTON.NS
     - LATENTVIEW.NS
-    - LTIM.NS
-    - CIGNITITEC.NS
+    - LTM.NS
+    - CIGNITI.NS
     - BIRLASOFT.NS
     - FSL.NS
     - RATEGAIN.NS
@@ -167,7 +167,7 @@ fmcg:
     - CCL.NS
     - GODFRYPHLP.NS
     - VSTIND.NS
-    - UNITEDSPR.NS
+    - UNITDSPR.NS
     - AWL.NS
     - DEVYANI.NS
     - WESTLIFE.NS
@@ -301,7 +301,7 @@ energy:
     - CPCL.NS
     - CASTROLIND.NS
     - GSPL.NS
-    - SWANENERGY.NS
+    - SWANCORP.NS
     - SUZLON.NS
     - INOXWIND.NS
     - NTPCGREEN.NS

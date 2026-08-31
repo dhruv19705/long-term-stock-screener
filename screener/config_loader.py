@@ -257,6 +257,54 @@ def insurance_tickers() -> List[str]:
     return [t for t, m in idx.items() if m["sector_focus"] == "insurance"]
 
 
+def _bucket_tickers(sector_focus: str) -> List[str]:
+    idx = ticker_index()
+    return [t for t, m in idx.items() if m["sector_focus"] == sector_focus]
+
+
+def _cap_split_peer_set(
+    ticker: str,
+    all_peers: List[str],
+    metrics_by_ticker: Optional[Dict[str, Any]],
+    cohort_large: str,
+    cohort_mid: str,
+    min_large_peers: int,
+) -> Tuple[str, List[str]]:
+    """Split a sector bucket into large-cap and mid-cap peer cohorts."""
+    if not metrics_by_ticker:
+        return cohort_mid.replace("_large", "").replace("_mid", ""), all_peers
+    large_cap = float(load_settings().get("cap_tiers", {}).get("large", 500_000_000_000))
+    meta_m = metrics_by_ticker.get(ticker)
+    is_large = (
+        meta_m is not None
+        and getattr(meta_m, "market_cap", None) is not None
+        and float(meta_m.market_cap) >= large_cap
+    )
+    if is_large:
+        large_peers = [
+            t
+            for t in all_peers
+            if t in metrics_by_ticker
+            and getattr(metrics_by_ticker[t], "market_cap", None) is not None
+            and float(metrics_by_ticker[t].market_cap) >= large_cap
+        ]
+        if len(large_peers) >= min_large_peers:
+            return cohort_large, large_peers
+    else:
+        mid_peers = [
+            t
+            for t in all_peers
+            if t in metrics_by_ticker
+            and (
+                getattr(metrics_by_ticker[t], "market_cap", None) is None
+                or float(metrics_by_ticker[t].market_cap) < large_cap
+            )
+        ]
+        if len(mid_peers) >= min_large_peers:
+            return cohort_mid, mid_peers
+    return cohort_mid.replace("_large", "").replace("_mid", ""), all_peers
+
+
 def all_tickers() -> List[str]:
     return list(ticker_index().keys())
 
@@ -343,39 +391,24 @@ def peer_set(ticker: str, metrics_by_ticker: Optional[Dict[str, Any]] = None) ->
 
     if focus == "it":
         all_it = it_tickers()
-        min_peers = int(load_settings().get("min_peers_for_rank", 10))
         it_min = int(load_settings().get("it_large_min_peers", 5))
-        large_cap = float(load_settings().get("cap_tiers", {}).get("large", 500_000_000_000))
-        if metrics_by_ticker:
-            meta_m = metrics_by_ticker.get(ticker)
-            is_large = (
-                meta_m is not None
-                and getattr(meta_m, "market_cap", None) is not None
-                and float(meta_m.market_cap) >= large_cap
-            )
-            if is_large:
-                large_peers = [
-                    t
-                    for t in all_it
-                    if t in metrics_by_ticker
-                    and getattr(metrics_by_ticker[t], "market_cap", None) is not None
-                    and float(metrics_by_ticker[t].market_cap) >= large_cap
-                ]
-                if len(large_peers) >= it_min:
-                    return "it_large", large_peers
-            else:
-                mid_peers = [
-                    t
-                    for t in all_it
-                    if t in metrics_by_ticker
-                    and (
-                        getattr(metrics_by_ticker[t], "market_cap", None) is None
-                        or float(metrics_by_ticker[t].market_cap) < large_cap
-                    )
-                ]
-                if len(mid_peers) >= it_min:
-                    return "it_mid", mid_peers
-        return "it", all_it
+        key, peers = _cap_split_peer_set(ticker, all_it, metrics_by_ticker, "it_large", "it_mid", it_min)
+        return key, peers
+
+    if focus in ("pharma", "capital_goods"):
+        all_peers = _bucket_tickers(focus)
+        min_peers = int(load_settings().get("it_large_min_peers", 5))
+        key, peers = _cap_split_peer_set(
+            ticker,
+            all_peers,
+            metrics_by_ticker,
+            f"{focus}_large",
+            f"{focus}_mid",
+            min_peers,
+        )
+        if len(peers) >= 3:
+            return key, peers
+        return focus, all_peers
 
     if focus == "insurance":
         peers = insurance_tickers()
