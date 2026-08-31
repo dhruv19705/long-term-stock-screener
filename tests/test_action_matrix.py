@@ -8,6 +8,10 @@ from screener.scoring.quality_grade import compute_quality_score, quality_grade_
 @pytest.fixture(autouse=True)
 def _production_action_book(monkeypatch):
     monkeypatch.delenv("SCREENER_BENCHMARK_CALIBRATION", raising=False)
+    monkeypatch.setattr(
+        "screener.scoring.action_matrix._benchmark_calibration",
+        lambda: {"street_overlay": False, "index_anchor": False},
+    )
 
 
 def _score(composite=70, fund=0.7, pctile=60, val="Fair", red=False, hard=False, conf=0.8):

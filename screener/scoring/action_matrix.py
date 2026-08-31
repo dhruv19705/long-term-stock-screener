@@ -7,6 +7,7 @@ from screener.models import ScoreResult, StockMetrics
 from screener.scoring.quality_grade import assign_quality_fields
 
 ACTION_LADDER = ["SELL", "AVOID", "HOLD", "BUY", "STRONG BUY"]
+CYCLICAL_SECTORS = frozenset({"auto", "energy", "metals", "capital_goods"})
 
 
 def _benchmark_calibration() -> dict:
@@ -57,15 +58,34 @@ def _rs_nifty(metrics: StockMetrics) -> Optional[float]:
     return metrics.rs_vs_nifty_pct
 
 
+def _cyclical_ok_for_buy(metrics: StockMetrics, val_label: str, rs: Optional[float]) -> bool:
+    if _focus(metrics) not in CYCLICAL_SECTORS:
+        return True
+    if val_label == "Under":
+        return True
+    return rs is not None and rs >= 0
+
+
 def _apply_large_cap_quality_floor(score: ScoreResult, metrics: StockMetrics) -> None:
     """Lift weak large-cap percentiles for display; never into Top (>=70)."""
     tier = _cap_tier(metrics.market_cap)
     if tier not in ("mega", "large"):
         return
-    if score.quality_score >= 0.70 and score.composite_percentile is not None:
+    if score.quality_score >= 0.65 and score.composite_percentile is not None:
         floor_pct = 50.0 if tier == "mega" else 30.0
         floor_pct = min(floor_pct, 69.0)
         score.composite_percentile = max(float(score.composite_percentile), floor_pct)
+
+
+def _resolve_peer_band(score: ScoreResult, metrics: StockMetrics) -> str:
+    band = peer_band_from_percentile(score.composite_percentile)
+    if (
+        score.quality_grade in ("A", "B")
+        and _cap_tier(metrics.market_cap) is not None
+        and band == "Bottom"
+    ):
+        band = "Lower-Mid"
+    return band
 
 
 def _apply_cap_floor(
@@ -97,7 +117,7 @@ def _derive_action(
     profile_id: Optional[str],
     composite_pctile: Optional[float] = None,
 ) -> str:
-    del band, profile_id, composite_pctile
+    del profile_id, composite_pctile
     book = _action_book()
     sell_rs = float(book.get("sell_rs", -10))
     avoid_rs = float(book.get("avoid_rs", -15))
@@ -130,6 +150,8 @@ def _derive_action(
                 return "SELL"
         if grade == "C":
             return "AVOID"
+        if grade == "A" and band in ("Top", "Upper-Mid") and rs is not None and rs > 0:
+            return "BUY"
 
     if val_label == "Fair" and grade in ("D", "F"):
         return "AVOID"
@@ -144,8 +166,14 @@ def _derive_action(
         if val_label == "Fair" and (rs is None or rs >= sb_fair_rs):
             return "STRONG BUY"
 
-    if grade in ("A", "B") and val_label in ("Under", "Fair") and not hard_fail:
-        return "BUY"
+    if grade in ("A", "B") and not hard_fail:
+        if val_label == "Under" and _cyclical_ok_for_buy(metrics, val_label, rs):
+            return "BUY"
+        if val_label == "Fair":
+            if band == "Top" and _cyclical_ok_for_buy(metrics, val_label, rs):
+                return "BUY"
+            if grade == "A" and rs is not None and rs >= 0 and _cyclical_ok_for_buy(metrics, val_label, rs):
+                return "BUY"
 
     return "HOLD"
 
@@ -223,9 +251,8 @@ def _apply_index_anchor(
     buy_idx = ACTION_LADDER.index("BUY")
     if ACTION_LADDER.index(action) >= buy_idx:
         return action
-    cyclical_sectors = {"auto", "energy", "metals", "capital_goods"}
     focus = sector_focus_for_ticker(metrics.ticker)
-    if focus in cyclical_sectors and score.valuation_label == "Over":
+    if focus in CYCLICAL_SECTORS and score.valuation_label == "Over":
         return action
     if score.valuation_label == "Over" and score.quality_grade == "A":
         return "BUY"
@@ -244,7 +271,7 @@ def assign_action(
     """Set quality fields and return final action label."""
     assign_quality_fields(score, metrics)
     _apply_large_cap_quality_floor(score, metrics)
-    band = peer_band_from_percentile(score.composite_percentile)
+    band = _resolve_peer_band(score, metrics)
     score.peer_band = band
 
     action = _derive_action(
@@ -258,20 +285,25 @@ def assign_action(
         score.composite_percentile,
     )
     action = _profile_adjust(action, score.quality_grade, band, score.valuation_label, metrics, profile_id)
-    action = _apply_cap_floor(action, metrics, score)
+    post_core = _apply_cap_floor(action, metrics, score)
+
     cal = _benchmark_calibration()
+    action = post_core
     if cal.get("index_anchor", False):
         action = _apply_index_anchor(action, metrics, score)
     action = _confidence_downgrade(action, score.confidence, metrics)
+    score.raw_recommendation = action
 
+    final = action
     if cal.get("street_overlay", False):
         try:
             from screener.data.street_consensus import apply_street_overlay
 
-            action = apply_street_overlay(action, metrics.ticker, score.quality_grade)
+            final = apply_street_overlay(action, metrics.ticker, score.quality_grade)
         except Exception:
-            pass
+            final = action
 
+    score.calibration_applied = final != post_core
+    score.recommendation = final
     _annotate_data_quality(score, metrics)
-    score.recommendation = action
-    return action
+    return final

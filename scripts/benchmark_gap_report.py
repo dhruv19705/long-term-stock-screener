@@ -61,8 +61,8 @@ def _root_cause(ticker: str, s, street: str, metrics=None) -> list[str]:
     return causes
 
 
-def run_audit(suite: str = "nifty50", use_cache: bool = True, refresh: bool = False) -> dict:
-    run_evaluation(sector_filter="all", use_cache=use_cache, refresh=refresh)
+def audit_from_state(suite: str = "nifty50") -> dict:
+    """Run benchmark audit against current STATE without re-fetching."""
     benchmark = load_benchmark_suite(suite)
     universe = set(all_tickers())
 
@@ -118,6 +118,11 @@ def run_audit(suite: str = "nifty50", use_cache: bool = True, refresh: bool = Fa
         "root_causes": dict(cause_counts),
         "mismatches": mismatches,
     }
+
+
+def run_audit(suite: str = "nifty50", use_cache: bool = True, refresh: bool = False) -> dict:
+    run_evaluation(sector_filter="all", use_cache=use_cache, refresh=refresh)
+    return audit_from_state(suite)
 
 
 def main() -> None:

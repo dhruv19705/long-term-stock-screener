@@ -114,6 +114,8 @@ class ScoreResult:
     score_breakdown: Dict[str, float] = field(default_factory=dict)
     confidence: float = 0.0
     recommendation: str = "HOLD"
+    raw_recommendation: Optional[str] = None
+    calibration_applied: bool = False
     quality_score: float = 0.0
     quality_grade: str = "C"
     peer_band: str = "Lower-Mid"
@@ -152,6 +154,8 @@ class StockInterpretation:
     model_sector: str = "UNKNOWN"
     analysis_depth: str = "standard"
     recommendation: str = "HOLD"
+    raw_recommendation: Optional[str] = None
+    calibration_applied: bool = False
     composite_score: float = 0.0
     composite_percentile: Optional[float] = None
     quality_grade: str = "C"

@@ -31,6 +31,12 @@ export function Layout() {
             <NavLink to="/sectors" className={linkClass}>
               Sectors
             </NavLink>
+            <NavLink to="/sector-ranking" className={linkClass}>
+              Sector Ranking
+            </NavLink>
+            <NavLink to="/nifty-benchmark" className={linkClass}>
+              Nifty 50
+            </NavLink>
             <NavLink to="/recommendations" className={linkClass}>
               For you
             </NavLink>

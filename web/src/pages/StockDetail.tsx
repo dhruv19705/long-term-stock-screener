@@ -64,6 +64,11 @@ export default function StockDetail() {
 
         <div className="rounded-2xl bg-white/95 p-6 shadow-sm ring-1 ring-slate-200/60">
           <RecommendationBadge value={data.recommendation} size="md" />
+          {data.calibration_applied && data.raw_recommendation && data.raw_recommendation !== data.recommendation && (
+            <p className="mt-2 text-xs text-slate-500">
+              Calibrated from {data.raw_recommendation} (Nifty/street alignment)
+            </p>
+          )}
           <div className="mt-5 grid grid-cols-2 gap-4 border-t border-slate-100 pt-5">
             <Metric label="Composite" value={data.composite_score.toFixed(1)} />
             <Metric label="Risk" value={data.stock_risk_score.toFixed(0)} />

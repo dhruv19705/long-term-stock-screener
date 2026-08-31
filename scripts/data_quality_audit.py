@@ -4,13 +4,14 @@ from __future__ import annotations
 import json
 from collections import Counter, defaultdict
 
-from screener.config_loader import all_tickers
+from screener.config_loader import all_tickers, nifty50_tickers
 from screener.data.fetcher import get_stock_data
 from screener.pipeline import run_evaluation, STATE
 
 
 def main() -> None:
     tickers = all_tickers()
+    n50 = nifty50_tickers()
     sources = Counter()
     missing = defaultdict(int)
     anomalies = []
@@ -36,6 +37,10 @@ def main() -> None:
                 gq3[q.signal] += 1
 
     recs = Counter(r.recommendation for r in STATE.scores.values())
+    metrics = list(STATE.metrics.values())
+    roe_all = sum(1 for m in metrics if m.roe_pct is not None)
+    roe_n50 = sum(1 for t in n50 if t in STATE.metrics and STATE.metrics[t].roe_pct is not None)
+    n50_in = sum(1 for t in n50 if t in STATE.metrics)
     out = {
         "sample_sources": dict(sources),
         "sample_missing": dict(missing),
@@ -44,6 +49,14 @@ def main() -> None:
         "recommendations": dict(recs),
         "kept": len(STATE.metrics),
         "dropped": STATE.dropped,
+        "roe_coverage": {
+            "all_pct": round(100 * roe_all / max(len(metrics), 1), 1),
+            "nifty50_pct": round(100 * roe_n50 / max(n50_in, 1), 1),
+            "with_roe": roe_all,
+            "total_scored": len(metrics),
+            "nifty50_with_roe": roe_n50,
+            "nifty50_scored": n50_in,
+        },
     }
     print(json.dumps(out, indent=2, default=str))
 

@@ -153,15 +153,36 @@ def fetch_nse_fundamentals(canonical: str) -> dict:
             return {}
         data = r.json()
         meta = data.get("metadata") or {}
-        out: dict = {}
         info = data.get("securityInfo") or {}
-        roe_raw = info.get("returnOnEquity") or meta.get("returnOnEquity")
-        if roe_raw is not None:
+        out: dict = {}
+
+        def _pct_field(raw: Any) -> Optional[float]:
+            if raw is None:
+                return None
             try:
-                val = float(roe_raw)
-                out["roe_pct"] = val * 100.0 if abs(val) <= 1.5 else val
+                val = float(raw)
             except (TypeError, ValueError):
-                pass
+                return None
+            return val * 100.0 if abs(val) <= 1.5 else val
+
+        roe_raw = (
+            info.get("returnOnEquity")
+            or meta.get("returnOnEquity")
+            or (data.get("financials") or {}).get("returnOnEquity")
+        )
+        roce_raw = (
+            info.get("returnOnCapitalEmployed")
+            or meta.get("returnOnCapitalEmployed")
+            or (data.get("financials") or {}).get("returnOnCapitalEmployed")
+        )
+        roe_pct = _pct_field(roe_raw)
+        if roe_pct is not None:
+            out["roe_pct"] = roe_pct
+        roce_pct = _pct_field(roce_raw)
+        if roce_pct is not None:
+            out["roce_pct"] = roce_pct
+        if out:
+            logger.info("NSE fundamentals OK for %s (%s)", canonical, ", ".join(out.keys()))
         return out
     except Exception as e:
         logger.debug("NSE fundamentals failed %s: %s", canonical, e)

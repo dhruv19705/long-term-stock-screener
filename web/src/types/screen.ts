@@ -16,6 +16,8 @@ export type ScreenRow = {
   confidence?: number | null;
   stock_risk_score?: number | null;
   recommendation: string;
+  raw_recommendation?: string | null;
+  calibration_applied?: boolean;
   quality_grade?: string;
   peer_band?: string;
   peer_rank?: number | null;

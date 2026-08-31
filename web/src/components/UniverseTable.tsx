@@ -142,7 +142,14 @@ export function UniverseTable({ rows, isLoading, sectorFilter, showSector = true
                     <td className={`${tdBase} px-5 capitalize text-slate-600`}>{sectorLabel(row.sector_focus)}</td>
                   )}
                   <td className={`${tdBase} px-5`}>
-                    <RecommendationBadge value={row.recommendation} />
+                    <div className="flex flex-col gap-0.5">
+                      <RecommendationBadge value={row.recommendation} />
+                      {row.calibration_applied && row.raw_recommendation && row.raw_recommendation !== row.recommendation && (
+                        <span className="text-[10px] text-slate-400" title={`Was ${row.raw_recommendation}`}>
+                          adj.
+                        </span>
+                      )}
+                    </div>
                   </td>
                   <td className={`${tdBase} px-5 text-right font-semibold tabular-nums text-ink`}>
                     {row.composite_score.toFixed(1)}
